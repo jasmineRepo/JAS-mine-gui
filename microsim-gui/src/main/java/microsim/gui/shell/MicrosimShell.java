@@ -835,12 +835,7 @@ public class MicrosimShell extends JFrame {
 					if (fields.size() > 0) {
 						ParameterFrame parameterFrame = new ParameterFrame(model);
 						parameterFrame.setResizable(false);	//Now in scrollpane, cannot resize anyway, so set to false.
-						JScrollPane scrollP = new JScrollPane(parameterFrame);
-						JInternalFrame f = new JInternalFrame();
-						f.add(scrollP);
-						f.setSize(parameterFrame.getWidth() + 10, Math.min(parameterFrame.getHeight() + 10, 550));
-						f.setVisible(true);
-						GuiUtils.addWindow(f);
+						GuiUtils.addWindow(parameterFrame);
 //						GuiUtils.addWindow(parameterFrame);
 						parameterFrames.add(parameterFrame);
 					}
