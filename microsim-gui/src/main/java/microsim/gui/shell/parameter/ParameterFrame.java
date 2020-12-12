@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JScrollPane;
 import microsim.annotation.GUIparameter;
 import microsim.annotation.ModelParameter;
 import microsim.gui.shell.MicrosimShell;
@@ -65,9 +66,11 @@ public class ParameterFrame extends JInternalFrame {
 		metawidget.setInspector( new CompositeInspector( inspectorConfig ) );
 		metawidget.setToInspect( target );			
 		
-		setSize((int)(MicrosimShell.scale*320), (int)(MicrosimShell.scale*Math.max(30 + 26 * fields.size(), 90)));
+		setSize((int)(MicrosimShell.scale*320), Math.min((int)(MicrosimShell.scale*Math.max(30 + 26 * fields.size(), 90)), 500));
+		JScrollPane scrollP = new JScrollPane(metawidget);
 		
-		getContentPane().add(metawidget);
+		if (metawidget.getComponentCount()>0) scrollP.getViewport().setBackground(metawidget.getComponent(0).getBackground());
+		getContentPane().add(scrollP);
 		setVisible(true);
 	
 	}

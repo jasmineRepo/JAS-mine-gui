@@ -176,13 +176,12 @@ public class MicrosimShell extends JFrame {
 		setInitButtonStatus();
 
 //		this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-		jSplitInternalDesktop.setDividerLocation(this.getHeight() / 3 * 4);
-		
 		currentShell = this;
 				
 		this.pack();
-		this.setSize((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(), (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+		this.setSize((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(), (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()-30);
 		this.setVisible(true);
+		jSplitInternalDesktop.setDividerLocation(jSplitInternalDesktop.getHeight() * 4 / 5);
 	}
 
 	public SimulationController getController() {
@@ -835,12 +834,7 @@ public class MicrosimShell extends JFrame {
 					if (fields.size() > 0) {
 						ParameterFrame parameterFrame = new ParameterFrame(model);
 						parameterFrame.setResizable(false);	//Now in scrollpane, cannot resize anyway, so set to false.
-						JScrollPane scrollP = new JScrollPane(parameterFrame);
-						JInternalFrame f = new JInternalFrame();
-						f.add(scrollP);
-						f.setSize(parameterFrame.getWidth() + 10, Math.min(parameterFrame.getHeight() + 10, 550));
-						f.setVisible(true);
-						GuiUtils.addWindow(f);
+						GuiUtils.addWindow(parameterFrame);
 //						GuiUtils.addWindow(parameterFrame);
 						parameterFrames.add(parameterFrame);
 					}
