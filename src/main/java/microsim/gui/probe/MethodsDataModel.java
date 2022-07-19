@@ -1,176 +1,139 @@
 package microsim.gui.probe;
 
-import javax.swing.ListModel;
+import javax.swing.*;
 import javax.swing.event.ListDataListener;
-import javax.swing.JOptionPane;
-
-import org.apache.log4j.Logger;
-
-import java.util.List;
+import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-
-import java.lang.reflect.*;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * Not of interest for users.
- * A data model used to show the list of methods into the probe.
- *
- * <p>Title: JAS</p>
- * <p>Description: Java Agent-based Simulation library</p>
- * <p>Copyright (C) 2002 Michele Sonnessa</p>
- *
- * This library is free software; you can redistribute it and/or modify it under the terms
- * of the GNU Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License along with this
- * library; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA 02111-1307, USA.
- *
- * @author Michele Sonnessa
- * <p>
+ * Not of interest for users. A data model used to show the list of methods into the probe.
  */
-public class MethodsDataModel implements ListModel {
+public class MethodsDataModel implements ListModel<Method> {
 
-	private static final Logger log = Logger.getLogger(MethodsDataModel.class);
-	
-  private List<Method> methods;
-  private Object targetObj;
-  private boolean viewPrivate;
-  private List<Object> probeFields;
+    private static final Logger log = Logger.getLogger(MethodsDataModel.class.getCanonicalName());
 
-  private int deepLevel = 0;
+    private final List<Method> methods;
+    private final Object targetObj;
+    private boolean viewPrivate;
+    private List<Object> probeFields;
 
-  public MethodsDataModel(Object o) {
-    methods = new ArrayList<Method>();
-    targetObj = o;
-    viewPrivate = true;
-    try {
-      probeFields = ((IProbeFields) o).getProbeFields();
-    } catch (Exception e)
-    {
-    	log.error(
-      			"Error creating MethodsDataModel: " + e.getMessage());
-    }
-    updateWithFields();
-  }
+    private int deepLevel = 0;
 
-  public MethodsDataModel(Object o, boolean privateVariables) {
-    methods = new ArrayList<Method>();
-    targetObj = o;
-    viewPrivate = privateVariables;
-    update(viewPrivate);
-  }
-
-  public void update()
-  {
-    if (probeFields == null)
-      update(viewPrivate);
-    else
-      updateWithFields();
-  }
-
-  public void setViewPrivate(boolean privateVariables)
-  {
-     viewPrivate = privateVariables;
-  }
-
-  private void update(boolean privateVariables)
-  {
-    viewPrivate = privateVariables;
-    methods.clear();
-
-    Class<?> cl = targetObj.getClass();
-    for (int i = 0; i < deepLevel; i++)
-      cl = cl.getSuperclass();
-
-    Method[] meth = cl.getDeclaredMethods();
-    AccessibleObject.setAccessible(meth, true);
-
-    for (int i=0; i < meth.length; i++)
-      if (viewPrivate || Modifier.isPublic(meth[i].getModifiers()))
-        methods.add(meth[i]);
-  }
-
-  public void setDeepLevel(int level)
-  {
-    deepLevel = level;
-  }
-
-  private void updateWithFields()
-  {
-    methods.clear();
-
-    Class<?> cl = targetObj.getClass();
-
-    while (cl != null)
-    {
-      Method[] meth = cl.getDeclaredMethods();
-      AccessibleObject.setAccessible(meth, true);
-
-      for (int i=0; i < meth.length; i++)
-        if (probeFields.contains( meth[i].getName() ))
-          methods.add(meth[i]);
-
-      cl = cl.getSuperclass();
-    }
-  }
-
-  public int getSize() {
-    return methods.size();
-  }
-  public Object getElementAt(int index) {
-    return methods.get(index);
-  }
-
-  public void invokeMethodAt(int index)
-  {
-    Method m = (Method) methods.get(index);
-
-    if (m.getParameterTypes().length > 0)
-    {
-      JOptionPane.showMessageDialog(null, "Method requires parameters",
-            "Method result", JOptionPane.INFORMATION_MESSAGE);
-      return;
+    public MethodsDataModel(Object o) {
+        methods = new ArrayList<>();
+        targetObj = o;
+        viewPrivate = true;
+        try {
+            probeFields = ((ProbeFields) o).getProbeFields();
+        } catch (Exception e) {
+            log.log(Level.SEVERE,"Error creating MethodsDataModel: " + e.getMessage());
+        }
+        updateWithFields();
     }
 
-    try {
-      Object o = m.invoke(targetObj, null);
+    public MethodsDataModel(Object o, boolean privateVariables) {
+        methods = new ArrayList<>();
+        targetObj = o;
+        viewPrivate = privateVariables;
+        update(viewPrivate);
+    }
 
-      if (o == null)
-        return;
+    public void update() {
+        if (probeFields == null) update(viewPrivate);
+        else updateWithFields();
+    }
 
-      JOptionPane.showMessageDialog(null, o.toString(),
-            "Method result", JOptionPane.PLAIN_MESSAGE);
+    public void setViewPrivate(boolean privateVariables) {
+        viewPrivate = privateVariables;
+    }
 
-    } catch (Exception e)
-    { System.out.println("Error in method.invoke:" + e.getMessage()); }
-  }
+    private void update(boolean privateVariables) {
+        viewPrivate = privateVariables;
+        methods.clear();
 
-  public void invokeMethodAt(int index, Object[] params)
-  {
-    Method m = (Method) methods.get(index);
+        Class<?> cl = targetObj.getClass();
+        for (int i = 0; i < deepLevel; i++) cl = cl.getSuperclass();
 
-    try {
-      Object o = m.invoke(targetObj, params);
+        Method[] meth = cl.getDeclaredMethods();
+        AccessibleObject.setAccessible(meth, true);
 
-      if (o == null)
-        return;
+        for (Method method : meth)
+            if (viewPrivate || Modifier.isPublic(method.getModifiers()))
+                methods.add(method);
+    }
 
-      JOptionPane.showMessageDialog(null, o.toString(),
-            "Method result", JOptionPane.PLAIN_MESSAGE);
+    public void setDeepLevel(int level) {
+        deepLevel = level;
+    }
 
-    } catch (Exception e)
-    { System.out.println("Error in method.invoke:" + e.getMessage()); }
-  }
+    private void updateWithFields() {
+        methods.clear();
 
-  public void addListDataListener(ListDataListener l) {
-  }
+        Class<?> cl = targetObj.getClass();
 
-  public void removeListDataListener(ListDataListener l) {
-  }
+        while (cl != null) {
+            Method[] meth = cl.getDeclaredMethods();
+            AccessibleObject.setAccessible(meth, true);
+
+            for (Method method : meth)
+                if (probeFields.contains(method.getName()))
+                    methods.add(method);
+            cl = cl.getSuperclass();
+        }
+    }
+
+    public int getSize() {
+        return methods.size();
+    }
+
+    public Method getElementAt(int index) {
+        return methods.get(index);
+    }
+
+    public void invokeMethodAt(int index) {
+        Method m = methods.get(index);
+
+        if (m.getParameterTypes().length > 0) {
+            JOptionPane.showMessageDialog(null, "Method requires parameters", "Method result",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        try {
+            Object o = m.invoke(targetObj, (Object) null);
+
+            if (o == null) return;
+
+            JOptionPane.showMessageDialog(null, o.toString(), "Method result", JOptionPane.PLAIN_MESSAGE);
+
+        } catch (Exception e) {
+            System.out.println("Error in method.invoke:" + e.getMessage());
+        }
+    }
+
+    public void invokeMethodAt(int index, Object[] params) {
+        Method m = methods.get(index);
+
+        try {
+            Object o = m.invoke(targetObj, params);
+
+            if (o == null) return;
+
+            JOptionPane.showMessageDialog(null, o.toString(), "Method result", JOptionPane.PLAIN_MESSAGE);
+
+        } catch (Exception e) {
+            System.out.println("Error in method.invoke:" + e.getMessage());
+        }
+    }
+
+    public void addListDataListener(ListDataListener l) {
+    }
+
+    public void removeListDataListener(ListDataListener l) {
+    }
 }

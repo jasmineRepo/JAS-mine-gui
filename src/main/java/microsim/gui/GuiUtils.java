@@ -16,7 +16,7 @@ public class GuiUtils {
     /**
      * Opens a probe on the given object and return its reference.
      *
-     * @param on         Object to be probed. If on implements the IProbeFields
+     * @param on         Object to be probed. If on implements the ProbeFields
      *                   interface the probe will use this set of fields.
      * @param title      The title of the probe frame.
      * @param ownerModel The caller SimModel.
@@ -32,7 +32,7 @@ public class GuiUtils {
     /**
      * Opens a probe on the given object and return its reference.
      *
-     * @param on    Object to be probed. If on implements the IProbeFields
+     * @param on    Object to be probed. If on implements the ProbeFields
      *              interface the probe will use this set of fields.
      * @param title The title of the probe frame.
      * @return A new instance of ProbeFrame.
