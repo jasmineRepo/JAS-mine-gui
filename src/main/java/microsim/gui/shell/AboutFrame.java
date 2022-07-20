@@ -44,7 +44,7 @@ public class AboutFrame extends JFrame {
             jTabbedPane = new JTabbedPane();
             jTabbedPane.setBorder(new TitledBorder(""));
             jTabbedPane.add(getJMainPanel(), "About JAS-mine");
-            //jTabbedPane.add(getJLicensePanel(), "License");
+            //jTabbedPane.add(getJLicensePanel(), "License");// todo add compact license
             jTabbedPane.add(getJSystemPanel(), "System");
         }
         return jTabbedPane;
