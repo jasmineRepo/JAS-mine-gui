@@ -1,70 +1,34 @@
 package microsim.gui.shell;
 
+import org.apache.commons.io.output.WriterOutputStream;
+
 import java.io.OutputStream;
 import java.io.Writer;
-
-import org.apache.log4j.Layout;
-import org.apache.log4j.WriterAppender;
-import org.apache.log4j.spi.LoggingEvent;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Formatter;
+import java.util.logging.LogRecord;
 
 /**
- * JAS custom log4j appender to catch logs and write them into the
- * JAS Console window.<br/><br/>
- * 
- * If you want to enable logging on the JAS console simply add this appender to 
- * the log4j.properties file, like that:<br/>
- * <br/>
- * <i>log4j.appender.stdout=microsim.gui.shell.JasConsoleAppender</i><br/>
- * <i>log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</i><br/>
- * <i>log4j.appender.stdout.layout.ConversionPattern=%d %p [%c] - %m%n</i><br/>
- * 
- * <p>
- * Title: JAS
- * </p>
- * <p>
- * Description: Java Agent-based Simulation library
- * </p>
- * <p>
- * Copyright (C) 2002-13 Michele Sonnessa
- * </p>
- * 
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- * 
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation, Inc.,
- * 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
- * 
- * @author Michele Sonnessa
- * 
+ * JAS custom logging appender to catch logs and write them into the JAS Console window.<br/><br/>
+ * // todo expand the docs
  */
-public class JasConsoleAppender extends WriterAppender {
 
-	public JasConsoleAppender() {		
-	}
+class JasConsoleAppender extends ConsoleHandler {
 
-	public JasConsoleAppender(Layout layout, OutputStream os) {
-		super(layout, os);		
-	}
+    public JasConsoleAppender(Formatter formatter, OutputStream os) {
+		super.setFormatter(formatter);
+		super.setOutputStream(os);
+    }
 
-	public JasConsoleAppender(Layout layout, Writer writer) {
-		super(layout, writer);
-	}
+    public JasConsoleAppender(Formatter formatter, Writer writer) {
+		super.setFormatter(formatter);
+		super.setOutputStream(new WriterOutputStream(writer, "UTF-8"));
+    }
 
 	@Override
-	public void append(LoggingEvent event) {
-		super.append(event);
-		if (MicrosimShell.currentShell != null)
-			MicrosimShell.currentShell.log(event.getMessage().toString());
-		else
-			System.out.println(event.getMessage().toString());
-	}
-
+    public void publish(LogRecord record) {
+		super.publish(record);
+		if (MicrosimShell.currentShell != null) MicrosimShell.currentShell.log(record.getMessage());
+		else System.out.println(record.getMessage());
+    }
 }
