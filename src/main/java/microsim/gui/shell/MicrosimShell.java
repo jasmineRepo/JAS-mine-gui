@@ -977,74 +977,25 @@ public class MicrosimShell extends JFrame {
 
                     for (Field modelParameter : fields) {
                         String modelParameterName = modelParameter.getName();
-                        if (modelParameterName.length() > 1) {
-                            if (Character.isLowerCase(modelParameterName.charAt(0)) &&
-                                    Character.isUpperCase(modelParameterName.charAt(1))) {
-                                if (!getters.contains("get" + modelParameterName)) {
-                                    //handles cases for fields with a name whose first character is lower case,
-                                    // followed by a capital letter, e.g. nWorkers.  In this case,
-                                    // the Java Beans convention is for a getter called getnWorkers, instead of getNWorkers.
-                                    if (!getters.contains("is" + modelParameterName)) {
-                                        //handles case for boolean 'is' getter methods
-                                        throw new RuntimeException("Model parameter " + modelParameterName +
-                                                " has no getter method.  Please create a getter method called get" +
-                                                modelParameterName + " in the " + model.getClass() +
-                                                " to enable this model parameter to be read by the GUI.");
-                                    }
-                                }
-                                if (!setters.contains("set" + modelParameterName)) {
-                                    throw new RuntimeException("Model parameter " + modelParameterName +
-                                            " has no setter method.  Please create a setter method called set" +
-                                            modelParameterName + " in the " + model.getClass() +
-                                            " to enable this model parameter to be controlled via the GUI.");
-                                }
-                            } else {
-                                String capModelParameterName = modelParameterName.substring(0, 1).toUpperCase() + modelParameterName.substring(1);// fixme go through the duplicates
-                                //Ensure first letter of name is capitalised
-                                String getterName = "get" + capModelParameterName;
-                                String setterName = "set" + capModelParameterName;
-
-                                if (!getters.contains(getterName)) {
-                                    if (!getters.contains("is" + capModelParameterName)) {
-                                        //handles case for boolean 'is' getter methods
-                                        throw new RuntimeException("Model parameter " + modelParameterName +
-                                                " has no getter method.  Please create a getter method called " +
-                                                getterName + " in the " + model.getClass() +
-                                                " to enable this model parameter to be read by the GUI.");
-                                    }
-                                }
-                                if (!setters.contains(setterName)) {
-                                    throw new RuntimeException("Model parameter " + modelParameterName +
-                                            " has no setter method.  Please create a setter method called " +
-                                            setterName + " in the " + model.getClass() +
-                                            " to enable this model parameter to be controlled via the GUI.");
-                                }
-                            }
-                        } else {
-                            //Still need to check that getter/setters exist for case where a single character is used for the model parameter name.
-                            String capModelParameterName = modelParameterName.substring(0, 1).toUpperCase() + modelParameterName.substring(1);
-                            //Ensure first letter of name is capitalised
-                            String getterName = "get" + capModelParameterName;
-                            String setterName = "set" + capModelParameterName;
-
-                            if (!getters.contains(getterName)) {
-                                if (!getters.contains("is" + capModelParameterName)) {
-                                    //handles case for boolean 'is' getter methods
-                                    throw new RuntimeException("Model parameter " + modelParameterName +
-                                            " has no getter method.  Please create a getter method called " +
-                                            getterName + " in the " + model.getClass() +
-                                            " to enable this model parameter to be read by the GUI.");
-                                }
-                            }
-                            if (!setters.contains(setterName)) {
+                        String capModelParameterName = modelParameterName.substring(0, 1).toUpperCase() + modelParameterName.substring(1);
+                        String getterName = "get" + capModelParameterName;
+                        String setterName = "set" + capModelParameterName;//handles case for boolean 'is' getter methods
+                        if (!getters.contains(getterName)) {
+                            if (!getters.contains("is" + capModelParameterName)) {
+                                //handles case for boolean 'is' getter methods
                                 throw new RuntimeException("Model parameter " + modelParameterName +
-                                        " has no setter method.  Please create a setter method called " + setterName +
-                                        " in the " + model.getClass() +
-                                        " to enable this model parameter to be controlled via the GUI.");
+                                        " has no getter method.  Please create a getter method called " +
+                                        getterName + " in the " + model.getClass() +
+                                        " to enable this model parameter to be read by the GUI.");
                             }
                         }
+                        if (!setters.contains(setterName)) {
+                            throw new RuntimeException("Model parameter " + modelParameterName +
+                                    " has no setter method.  Please create a setter method called " +
+                                    setterName + " in the " + model.getClass() +
+                                    " to enable this model parameter to be controlled via the GUI.");
+                        }
                     }
-
 
                     if (fields.size() > 0) {
                         ParameterFrame parameterFrame = new ParameterFrame(model);
