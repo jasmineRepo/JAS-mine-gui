@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Not of interest for users. A data model used to show the list of methods into the probe.
+ * A data model used to show the list of methods into the probe.
  */
 public class MethodsDataModel implements ListModel<Method> {
 
@@ -31,7 +31,7 @@ public class MethodsDataModel implements ListModel<Method> {
         try {
             probeFields = ((ProbeFields) o).getProbeFields();
         } catch (Exception e) {
-            log.log(Level.SEVERE,"Error creating MethodsDataModel: " + e.getMessage());
+            log.log(Level.SEVERE, "Error creating MethodsDataModel: " + e.getMessage());
         }
         updateWithFields();
     }

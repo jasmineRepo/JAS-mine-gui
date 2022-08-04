@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParameterInspector implements Inspector {// fixme improve
+
     public static List<Field> extractModelParameters(Class<?> clazz) {
         List<Field> collectedFields = new ArrayList<>();
 

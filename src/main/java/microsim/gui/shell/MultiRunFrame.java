@@ -1,5 +1,6 @@
 package microsim.gui.shell;
 
+import lombok.extern.java.Log;
 import microsim.engine.EngineListener;
 import microsim.engine.MultiRun;
 import microsim.engine.MultiRunListener;
@@ -11,15 +12,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.Serial;
-import java.util.logging.Logger;
 
 /**
  * This class implements the multi run control panel shown by JAS when a MultiRun class is executed.
  */
 
+@Log
 public class MultiRunFrame extends JFrame implements MultiRunListener, EngineListener {
-
-    private static final Logger log = Logger.getLogger(MultiRunFrame.class.getCanonicalName());
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -35,12 +34,9 @@ public class MultiRunFrame extends JFrame implements MultiRunListener, EngineLis
     private final JButton jBtnQuit = new JButton();
     private final JPanel jPanelBtns = new JPanel();
     private final JButton jBtnStart = new JButton();
-
-    private int forward = 1;
-
     private final int maxRuns;
-
     private final MultiRun test;
+    private int forward = 1;
 
     public MultiRunFrame(MultiRun test, String title, int maxRuns) {
         this.test = test;

@@ -18,7 +18,7 @@ public class ConsoleTextArea extends JTextArea {
 
     /**
      * It is attached to the default System.out and System.err streams.
-	 */
+     */
     public ConsoleTextArea() {
         // Redirect System.out & System.err.
         PrintStream ps = new PrintStream(byteArrayOS);
@@ -58,33 +58,33 @@ public class ConsoleTextArea extends JTextArea {
 
     private void startByteArrayReaderThread() {
         new Thread(() -> {
-			String buff;
-			while (true) {
-				// Check for bytes in the stream.
-				if (byteArrayOS.size() > 0) {
-					if (keepRunning) {
-						synchronized (byteArrayOS) {
-							buff = byteArrayOS.toString();
-							byteArrayOS.reset();
-						}
-						append(buff);
-						setCaretPosition(getDocument().getLength());
-					} else {
-						synchronized (byteArrayOS) {
-							byteArrayOS.reset(); // Clear the buffer.
-						}
-					}
-				} else
-					// No data available, go to sleep.
-					try {
-						// Check the ByteArrayOutputStream every
-						// 1 second for new data.
-						Thread.sleep(500); // fixme
-						Thread.yield();
-					} catch (InterruptedException ignored) {
-					}
-			}
-		}).start();
+            String buff;
+            while (true) {
+                // Check for bytes in the stream.
+                if (byteArrayOS.size() > 0) {
+                    if (keepRunning) {
+                        synchronized (byteArrayOS) {
+                            buff = byteArrayOS.toString();
+                            byteArrayOS.reset();
+                        }
+                        append(buff);
+                        setCaretPosition(getDocument().getLength());
+                    } else {
+                        synchronized (byteArrayOS) {
+                            byteArrayOS.reset(); // Clear the buffer.
+                        }
+                    }
+                } else
+                    // No data available, go to sleep.
+                    try {
+                        // Check the ByteArrayOutputStream every
+                        // 1 second for new data.
+                        Thread.sleep(500); // fixme
+                        Thread.yield();
+                    } catch (InterruptedException ignored) {
+                    }
+            }
+        }).start();
     }
 
 }

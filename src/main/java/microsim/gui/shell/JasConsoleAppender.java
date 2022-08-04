@@ -16,19 +16,19 @@ import java.util.logging.LogRecord;
 class JasConsoleAppender extends ConsoleHandler {
 
     public JasConsoleAppender(Formatter formatter, OutputStream os) {
-		super.setFormatter(formatter);
-		super.setOutputStream(os);
+        super.setFormatter(formatter);
+        super.setOutputStream(os);
     }
 
     public JasConsoleAppender(Formatter formatter, Writer writer) {
-		super.setFormatter(formatter);
-		super.setOutputStream(new WriterOutputStream(writer, "UTF-8"));
+        super.setFormatter(formatter);
+        super.setOutputStream(new WriterOutputStream(writer, "UTF-8"));
     }
 
-	@Override
+    @Override
     public void publish(LogRecord record) {
-		super.publish(record);
-		if (MicrosimShell.currentShell != null) MicrosimShell.currentShell.log(record.getMessage());
-		else System.out.println(record.getMessage());
+        super.publish(record);
+        if (MicrosimShell.currentShell != null) MicrosimShell.currentShell.log(record.getMessage());
+        else System.out.println(record.getMessage());
     }
 }

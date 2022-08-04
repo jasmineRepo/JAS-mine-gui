@@ -1,5 +1,6 @@
 package microsim.gui.shell;
 
+import lombok.Getter;
 import lombok.val;
 import microsim.engine.EngineListener;
 import microsim.engine.SimulationEngine;
@@ -33,6 +34,7 @@ public class MicrosimShell extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final String settingsFileName = "jas.ini";
     public static MicrosimShell currentShell;
+    @Getter
     private final SimulationController controller = new SimulationController(this);
     private CaptureConsoleWindow consoleWindow = null;
     private javax.swing.JPanel jContentPane = null;
@@ -103,10 +105,6 @@ public class MicrosimShell extends JFrame {
     private static boolean isSetter(Method method) {
         if (!method.getName().startsWith("set")) return false;
         return method.getParameterTypes().length == 1;
-    }
-
-    public SimulationController getController() {
-        return controller;
     }
 
     /**

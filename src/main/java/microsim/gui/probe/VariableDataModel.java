@@ -1,5 +1,6 @@
 package microsim.gui.probe;
 
+import lombok.extern.java.Log;
 import lombok.val;
 
 import javax.swing.*;
@@ -9,14 +10,12 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * Not of interest for users. A data model used to show the list of variables into the probe.
+ * A data model used to show the list of variables into the probe.
  */
+@Log
 public class VariableDataModel extends AbstractTableModel {
-
-    private static final Logger log = Logger.getLogger(VariableDataModel.class.getCanonicalName());
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -132,16 +131,16 @@ public class VariableDataModel extends AbstractTableModel {
     }
 
     public String getHeaderText(int column) {
-      return switch (column + 1) {
-        case COL_NAME -> "Name";
-        case COL_TYPE -> "Type";
-        case COL_VALUE -> "Value";
-        default -> "";
-      };
+        return switch (column + 1) {
+            case COL_NAME -> "Name";
+            case COL_TYPE -> "Type";
+            case COL_VALUE -> "Value";
+            default -> "";
+        };
     }
 
     public int getColumnCount() {
-      return data == null ? 0 : COLUMNS - 1;
+        return data == null ? 0 : COLUMNS - 1;
     }
 
     public Object getValueAt(int row, int col) {
@@ -149,7 +148,7 @@ public class VariableDataModel extends AbstractTableModel {
     }
 
     public int getRowCount() {
-      return data == null ? 0 : data.length;
+        return data == null ? 0 : data.length;
     }
 
     public void setValueAt(Object val, int row, int col) {

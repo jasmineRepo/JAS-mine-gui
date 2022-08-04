@@ -15,21 +15,21 @@ public class Weighted_HistogramBin implements Cloneable, Serializable {
      */
     @Serial
     private static final long serialVersionUID = 7614685080015589931L;
-
-    /**
-     * The (weighted) number of items in the bin, the weights can be double, meaning that the count can also be double.
-     */
-    @Getter private double count;
-
     /**
      * The start boundary.
      */
-    @Getter private final double startBoundary;
-
+    @Getter
+    private final double startBoundary;
     /**
      * The end boundary.
      */
-    @Getter private final double endBoundary;
+    @Getter
+    private final double endBoundary;
+    /**
+     * The (weighted) number of items in the bin, the weights can be double, meaning that the count can also be double.
+     */
+    @Getter
+    private double count;
 
     /**
      * Creates a new bin.

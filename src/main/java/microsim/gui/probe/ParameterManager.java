@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Not of interest for users. A data model used to contain the list of elements within a collection. It is used by the
+ * A data model used to contain the list of elements within a collection. It is used by the
  * Probe frame.
  */
 public class ParameterManager {

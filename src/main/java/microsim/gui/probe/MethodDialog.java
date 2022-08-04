@@ -7,7 +7,7 @@ import java.io.Serial;
 import java.lang.reflect.Method;
 
 /**
- * Not of interest for users.A dialog used by the probe to get input parameters from user.
+ * A dialog used by the probe to get input parameters from user.
  */
 
 public class MethodDialog extends JDialog {

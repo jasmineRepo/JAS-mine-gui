@@ -34,8 +34,6 @@ import static java.lang.StrictMath.*;
  * into account by adding the weight to the count of each group. Groups can be optionally provided by the caller.
  */
 public class Weighted_PyramidPlotter extends JInternalFrame implements EventListener {
-
-
     @Serial
     private static final long serialVersionUID = 1L;
     private static final int MAXIMUM_VISIBLE_CATEGORIES = 20;

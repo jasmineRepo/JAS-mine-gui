@@ -146,9 +146,9 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the DoubleSource interface to produce values for the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param plottableObject_Y The data source object implementing the DoubleSource interface to produce values for the
-     *                         y-axis (range).
+     *                          y-axis (range).
      */
     public void addSeries(String legend, DoubleSource plottableObject_X, DoubleSource plottableObject_Y) {
         DSource sourceX = new DSource(legend, plottableObject_X, DoubleSource.Variables.Default);
@@ -164,10 +164,10 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the DoubleSource interface producing values of the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param variableID_X      The variable id of the source object producing values of the x-axis (domain).
      * @param plottableObject_Y The data source object implementing the DoubleSource interface producing values of the
-     *                         y-axis (range).
+     *                          y-axis (range).
      * @param variableID_Y      The variable id of the source object producing values of the y-axis (range).
      */
     public void addSeries(String legend, DoubleSource plottableObject_X, Enum<?> variableID_X,
@@ -203,10 +203,10 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the FloatSource interface producing values of the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param variableID_X      The variable id of the source object producing values of the x-axis (domain).
      * @param plottableObject_Y The data source object implementing the FloatSource interface producing values of the
-     *                         y-axis (range).
+     *                          y-axis (range).
      * @param variableID_Y      The variable id of the source object producing values of the y-axis (range).
      */
     public void addSeries(String legend, FloatSource plottableObject_X, Enum<?> variableID_X,
@@ -224,9 +224,9 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the LongSource interface producing values of the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param plottableObject_Y The data source object implementing the LongSource interface producing values of the
-     *                         y-axis (range).
+     *                          y-axis (range).
      */
     public void addSeries(String legend, LongSource plottableObject_X, LongSource plottableObject_Y) {
         LSource sourceX = new LSource(legend, plottableObject_X, LongSource.Variables.Default);
@@ -242,10 +242,10 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the LongSource interface producing values of the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param variableID_X      The variable id of the source object producing values of the x-axis (domain).
      * @param plottableObject_Y The data source object implementing the LongSource interface producing values of the
-     *                         y-axis (range).
+     *                          y-axis (range).
      * @param variableID_Y      The variable id of the source object producing values of the y-axis (range).
      */
     public void addSeries(String legend, LongSource plottableObject_X, Enum<?> variableID_X,
@@ -263,9 +263,9 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the IntSource interface producing values of the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param plottableObject_Y The data source object implementing the IntSource interface producing values of the
-     *                         y-axis (range).
+     *                          y-axis (range).
      */
     public void addSeries(String legend, IntSource plottableObject_X, IntSource plottableObject_Y) {
         ISource sourceX = new ISource(legend, plottableObject_X, IntSource.Variables.Default);
@@ -281,10 +281,10 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the IntSource interface producing values of the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param variableID_X      The variable id of the source object producing values of the x-axis (domain).
      * @param plottableObject_Y The data source object implementing the IntSource interface producing values of the
-     *                         y-axis (range).
+     *                          y-axis (range).
      * @param variableID_Y      The variable id of the source object producing values of the y-axis (range).
      */
     public void addSeries(String legend, IntSource plottableObject_X,
@@ -309,7 +309,7 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      * @param getFromMethod_Y Specifies if the variableName_Y is a field or a method.
      */
     public void addSeries(String legend, Object target_X, String variableName_X, boolean getFromMethod_X,
-                          Object target_Y, String variableName_Y,  boolean getFromMethod_Y) {
+                          Object target_Y, String variableName_Y, boolean getFromMethod_Y) {
 
         // First, look at X values
         Source sourceX;
@@ -356,9 +356,9 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the DoubleSource interface to produce values for the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param plottableObject_Y The data source object implementing the LongSource interface to produce values for the
-     *                         y-axis (range).
+     *                          y-axis (range).
      */
     public void addSeries(String legend, DoubleSource plottableObject_X, LongSource plottableObject_Y) {
         DSource sourceX = new DSource(legend, plottableObject_X, DoubleSource.Variables.Default);
@@ -375,10 +375,10 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the DoubleSource interface producing values of the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param variableID_X      The variable id of the source object producing values of the x-axis (domain).
      * @param plottableObject_Y The data source object implementing the LongSource interface producing values of the
-     *                         y-axis (range).
+     *                          y-axis (range).
      * @param variableID_Y      The variable id of the source object producing values of the y-axis (range).
      */
     public void addSeries(String legend, DoubleSource plottableObject_X, Enum<?> variableID_X,
@@ -397,9 +397,9 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the LongSource interface to produce values for the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param plottableObject_Y The data source object implementing the DoubleSource interface to produce values for the
-     *                         y-axis (range).
+     *                          y-axis (range).
      */
     public void addSeries(String legend, LongSource plottableObject_X, DoubleSource plottableObject_Y) {
         LSource sourceX = new LSource(legend, plottableObject_X, LongSource.Variables.Default);
@@ -416,10 +416,10 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
      *
      * @param legend            The legend name of the series.
      * @param plottableObject_X The data source object implementing the LongSource interface producing values of the
-     *                         x-axis (domain).
+     *                          x-axis (domain).
      * @param variableID_X      The variable id of the source object producing values of the x-axis (domain).
      * @param plottableObject_Y The data source object implementing the DoubleSource interface producing values of the
-     *                         y-axis (range).
+     *                          y-axis (range).
      * @param variableID_Y      The variable id of the source object producing values of the y-axis (range).
      */
     public void addSeries(String legend, LongSource plottableObject_X,
@@ -464,6 +464,7 @@ public class ScatterplotSimulationPlotterRefreshable extends JInternalFrame impl
     private abstract static class Source {
         public Enum<?> vId;
         protected boolean isUpdatable;
+
         public abstract double getDouble();
     }
 

@@ -16,9 +16,9 @@
 
 package microsim.gui.shell.parameter;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils2.BeanUtils;
+import org.apache.commons.beanutils2.ConvertUtils;
+import org.apache.commons.beanutils2.PropertyUtils;
 import org.metawidget.swing.SwingMetawidget;
 import org.metawidget.swing.widgetprocessor.binding.BindingConverter;
 import org.metawidget.util.CollectionUtils;
@@ -239,9 +239,9 @@ public class MetawidgetBinder implements AdvancedWidgetProcessor<JComponent, Swi
 
         if (field.getType().isEnum()) {
             if (componentValue != null) {
-                Class<?> c = field.getType();
-                Class<? extends Enum> ce = (Class<? extends Enum>) c;
-                Enum<?> value1 = Enum.valueOf(ce, componentValue.toString());
+                var c = field.getType();
+                var ce = (Class<? extends Enum>) c;
+                var value1 = Enum.valueOf(ce, componentValue.toString());
                 BeanUtils.setProperty(source, names, value1);
             } else {
                 BeanUtils.setProperty(source, names, null);

@@ -101,7 +101,8 @@ public class Weighted_HistogramSimulationPlotter extends JInternalFrame implemen
         else if (type.equals(HistogramType.SCALE_AREA_TO_1)) {
             System.out.println("WARNING - the SCALE_AREA_TO_1 Weighted_HistogramSimulationPlotter has not been tested and may produce incorrect output!");
             yaxis = "Density (area scaled to 1)";
-        } else throw new IllegalArgumentException("Incorrect HistogramType argument when calling HistogramSimulationPlotter constructor!");
+        } else
+            throw new IllegalArgumentException("Incorrect HistogramType argument when calling HistogramSimulationPlotter constructor!");
 
         chart = ChartFactory.createHistogram(
                 title,      // chart title

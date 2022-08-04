@@ -1,5 +1,7 @@
 package microsim.gui.probe;
 
+import lombok.extern.java.Log;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.io.Serial;
@@ -7,14 +9,12 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * A data model used to contain the list of elements within a collection. It is used by the Probe frame.
  */
+@Log
 public class ObjectDataModel extends AbstractTableModel {
-
-    private static final Logger log = Logger.getLogger(ObjectDataModel.class.getCanonicalName());
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -70,15 +70,15 @@ public class ObjectDataModel extends AbstractTableModel {
     }
 
     public String getHeaderText(int column) {
-      return switch (column + 1) {
-        case COL_VALUE -> "Value";
-        case COL_TYPE -> "Type";
-        default -> "";
-      };
+        return switch (column + 1) {
+            case COL_VALUE -> "Value";
+            case COL_TYPE -> "Type";
+            default -> "";
+        };
     }
 
     public int getColumnCount() {
-      return data == null ? 0 : COLUMNS - 1;
+        return data == null ? 0 : COLUMNS - 1;
     }
 
     public Object getValueAt(int row, int col) {
@@ -86,7 +86,7 @@ public class ObjectDataModel extends AbstractTableModel {
     }
 
     public int getRowCount() {
-      return data == null ? 0 : data.length;
+        return data == null ? 0 : data.length;
     }
 
     public void setValueAt(Object val, int row, int col) {
@@ -120,18 +120,19 @@ public class ObjectDataModel extends AbstractTableModel {
     }
 
     private void setPrimitiveValueToArray(Object o, Object val, int row) {
-      switch (o) {
-        case String ignored -> Array.set(targetObj, row, val);
-        case Integer ignored -> Array.setInt(targetObj, row, Integer.parseInt(val.toString()));
-        case Double ignored -> Array.setDouble(targetObj, row, Double.parseDouble(val.toString()));
-        case Boolean ignored -> Array.setBoolean(targetObj, row, Boolean.parseBoolean(val.toString()));
-        case Byte ignored -> Array.setByte(targetObj, row, Byte.parseByte(val.toString()));
-        case Character ignored -> Array.setChar(targetObj, row, val.toString().charAt(0));
-        case Float ignored -> Array.setFloat(targetObj, row, Float.parseFloat(val.toString()));
-        case Long ignored -> Array.setLong(targetObj, row, Long.parseLong(val.toString()));
-        case Short ignored -> Array.setShort(targetObj, row, Short.parseShort(val.toString()));
-        case null, default -> {}
-      }
+        switch (o) {
+            case String ignored -> Array.set(targetObj, row, val);
+            case Integer ignored -> Array.setInt(targetObj, row, Integer.parseInt(val.toString()));
+            case Double ignored -> Array.setDouble(targetObj, row, Double.parseDouble(val.toString()));
+            case Boolean ignored -> Array.setBoolean(targetObj, row, Boolean.parseBoolean(val.toString()));
+            case Byte ignored -> Array.setByte(targetObj, row, Byte.parseByte(val.toString()));
+            case Character ignored -> Array.setChar(targetObj, row, val.toString().charAt(0));
+            case Float ignored -> Array.setFloat(targetObj, row, Float.parseFloat(val.toString()));
+            case Long ignored -> Array.setLong(targetObj, row, Long.parseLong(val.toString()));
+            case Short ignored -> Array.setShort(targetObj, row, Short.parseShort(val.toString()));
+            case null, default -> {
+            }
+        }
     }
 
     public Object getObjectAtRow(int row) {
@@ -151,7 +152,7 @@ public class ObjectDataModel extends AbstractTableModel {
     }
 
     public boolean isCellEditable(int row, int col) {
-      return (col + 1) == COL_VALUE;
+        return (col + 1) == COL_VALUE;
 
     }
 

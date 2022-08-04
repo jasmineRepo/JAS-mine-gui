@@ -38,7 +38,7 @@ public class DatabaseExplorerFrame extends JInternalFrame {
     /**
      * Constructor.
      *
-     * @param engine       The simulation engine to edit.
+     * @param engine The simulation engine to edit.
      */
     public DatabaseExplorerFrame(SimulationEngine engine) {
         initialize();
@@ -53,14 +53,14 @@ public class DatabaseExplorerFrame extends JInternalFrame {
     static private boolean deleteDirectory(File path) {
         if (path.exists()) {
             File[] files = path.listFiles();
-			if (files == null) return false;
-			for (File file : files) {
-				if (file.isDirectory()) {
-					deleteDirectory(file);
-				} else {
-					file.delete();// fixme rework logic
-				}
-			}
+            if (files == null) return false;
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    file.delete();// fixme rework logic
+                }
+            }
         }
         return (path.delete());
     }
@@ -94,7 +94,7 @@ public class DatabaseExplorerFrame extends JInternalFrame {
             dirs = outputDir.listFiles();
             if (dirs == null) dirs = new File[0];
             model.addElement("INPUT");
-			for (File file : dirs) model.addElement(file.getName());
+            for (File file : dirs) model.addElement(file.getName());
             jList = new JList<>(model);
         }
         return jList;
@@ -104,13 +104,13 @@ public class DatabaseExplorerFrame extends JInternalFrame {
         if (jList.getSelectedValue() == null) return;
 
         try {
-			//Added ";MVCC=TRUE;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO" in order to allow input database to be inspected,
-			// closed and then the simulation to be run. Without this, an exception is thrown as the database is still connected.
-			var dbString = "jdbc:h2:%s";
-			dbString = dbString.formatted((jList.getSelectedIndex() == 0) ?
-					"input/input;MVCC=TRUE;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO" :
-					"output/" + jList.getSelectedValue() + "/database/out;AUTO_SERVER=TRUE");
-			new Console().runTool("-url", dbString, "-user", "sa", "-password", "");
+            //Added ";MVCC=TRUE;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO" in order to allow input database to be inspected,
+            // closed and then the simulation to be run. Without this, an exception is thrown as the database is still connected.
+            var dbString = "jdbc:h2:%s";
+            dbString = dbString.formatted((jList.getSelectedIndex() == 0) ?
+                    "input/input;MVCC=TRUE;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO" :
+                    "output/" + jList.getSelectedValue() + "/database/out;AUTO_SERVER=TRUE");
+            new Console().runTool("-url", dbString, "-user", "sa", "-password", "");
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
@@ -121,23 +121,23 @@ public class DatabaseExplorerFrame extends JInternalFrame {
 
         try {
             if (jList.getSelectedIndex() == 0) {
-				//Don't delete input database!
+                //Don't delete input database!
                 System.out.println("Only output databases can be deleted via the GUI!");
-			} else {
+            } else {
                 int indexToDelete = -1;
                 for (int i = 0; i < dirs.length; i++) {
-					//Cannot use jList.getSelectedIndex() to find dirs as index of dirs array is not updated after an element is deleted, unlike jList.
+                    //Cannot use jList.getSelectedIndex() to find dirs as index of dirs array is not updated after an element is deleted, unlike jList.
                     if (dirs[i].getName().equals(jList.getSelectedValue())) {
                         indexToDelete = i;
                         break;
                     }
                 }
                 if ((indexToDelete != -1) && deleteDirectory(dirs[indexToDelete].getAbsoluteFile())) {
-					//Note that dirs doesn't contain "INPUT" as first entry, unlike model.
+                    //Note that dirs doesn't contain "INPUT" as first entry, unlike model.
                     model.removeElementAt(jList.getSelectedIndex());
                 } else {
                     throw new FileSystemException("Database cannot be deleted; check that the database is not in use!" +
-							" Try again, after closing all connections to the database or restarting the GUI.");
+                            " Try again, after closing all connections to the database or restarting the GUI.");
                 }
             }
         } catch (IOException e1) {

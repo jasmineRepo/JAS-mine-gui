@@ -124,7 +124,7 @@ public class CaptureConsoleWindow extends JInternalFrame {
     private javax.swing.JButton getJBtnClear() {
         if (jBtnClear == null) {
             jBtnClear = new javax.swing.JButton();
-            val iconLink =  getClass().getResource("/microsim/gui/icons/clear16.gif");
+            val iconLink = getClass().getResource("/microsim/gui/icons/clear16.gif");
             if (iconLink != null) jBtnClear.setIcon(new ImageIcon(iconLink));
             jBtnClear.setToolTipText("Clear the content of the window");
             jBtnClear.addActionListener(e -> clearText());

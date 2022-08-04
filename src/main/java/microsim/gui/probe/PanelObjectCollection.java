@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.io.Serial;
 
 /**
- * Not of interest for users. Its the panel containing the table using ObjectDataModel.
+ * It's the panel containing the table using ObjectDataModel.
  */
 public class PanelObjectCollection extends JPanel {
     @Serial

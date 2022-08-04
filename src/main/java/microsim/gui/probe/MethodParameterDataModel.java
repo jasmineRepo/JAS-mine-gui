@@ -7,8 +7,7 @@ import java.io.Serial;
 import java.lang.reflect.*;
 
 /**
- * Not of interest for users. A data model used to collect input parameters of a method. It is used by the table of the
- * MethodDialog frame.
+ * A data model used to collect input parameters of a method. It is used by the table of the MethodDialog frame.
  */
 public class MethodParameterDataModel extends AbstractTableModel {
 
@@ -26,12 +25,12 @@ public class MethodParameterDataModel extends AbstractTableModel {
 
     public MethodParameterDataModel(Method objToInspect) {
         targetObj = objToInspect;
-        if (ProbeReflectionUtils.isAnExecutableMethod(targetObj))  update();
+        if (ProbeReflectionUtils.isAnExecutableMethod(targetObj)) update();
     }
 
     public void update() {
         Class<?>[] params = targetObj.getParameterTypes();
-      data = new Object[params.length][COLUMNS];
+        data = new Object[params.length][COLUMNS];
 
         for (int i = 0; i < params.length; i++) {
             data[i][COL_VALUE] = "";        //Modification by Ross	 (See J. Bloch "Effective Java" 2nd Edition, Item 5)
@@ -41,15 +40,15 @@ public class MethodParameterDataModel extends AbstractTableModel {
     }
 
     public String getHeaderText(int column) {
-      return switch (column + 1) {
-        case COL_VALUE -> "Value";
-        case COL_TYPE -> "Type";
-        default -> "";
-      };
+        return switch (column + 1) {
+            case COL_VALUE -> "Value";
+            case COL_TYPE -> "Type";
+            default -> "";
+        };
     }
 
     public int getColumnCount() {
-      return data == null ? 0 : COLUMNS - 1;
+        return data == null ? 0 : COLUMNS - 1;
     }
 
     public Object getValueAt(int row, int col) {
@@ -57,7 +56,7 @@ public class MethodParameterDataModel extends AbstractTableModel {
     }
 
     public int getRowCount() {
-      return data == null ? 0 : data.length;
+        return data == null ? 0 : data.length;
     }
 
     public void setValueAt(Object val, int row, int col) {
@@ -139,7 +138,7 @@ public class MethodParameterDataModel extends AbstractTableModel {
     }
 
     public boolean isCellEditable(int row, int col) {
-      return (col + 1) == COL_VALUE;
+        return (col + 1) == COL_VALUE;
     }
 
     public Object getProbedObject() {
