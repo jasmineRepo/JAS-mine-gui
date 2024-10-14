@@ -84,7 +84,7 @@ public class DatabaseExplorerFrame extends JInternalFrame {
 	 * @param engine
 	 *            The simulation engine to edit.
 	 * @param controlPanel
-	 *            A refrence to an instance of ControlPanel.
+	 *            A reference to an instance of ControlPanel.
 	 */
 	public DatabaseExplorerFrame(SimulationEngine engine) {
 		initialize();	
@@ -143,9 +143,9 @@ public class DatabaseExplorerFrame extends JInternalFrame {
 		
 		try {
 			if (jList.getSelectedIndex() == 0)			//Added ";MVCC=TRUE;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO" in order to allow input database to be inspected, closed and then the simulation to be run. Without this, an exception is thrown as the database is still connected.
-				new Console().runTool(new String[] {"-url", "jdbc:h2:input/input;MVCC=TRUE;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO", "-user", "sa", "-password", ""});
+				new Console().runTool(new String[] {"-url", "jdbc:h2:file:./input/input;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO", "-user", "sa", "-password", ""});
 			else
-				new Console().runTool(new String[] {"-url", "jdbc:h2:output/" + jList.getSelectedValue().toString() + "/database/out;AUTO_SERVER=TRUE", "-user", "sa", "-password", ""});
+				new Console().runTool(new String[] {"-url", "jdbc:h2:file:./output/" + jList.getSelectedValue().toString() + "/database/out;AUTO_SERVER=TRUE", "-user", "sa", "-password", ""});
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -204,10 +204,10 @@ public class DatabaseExplorerFrame extends JInternalFrame {
 	}
 	
 	void jBtnInit_actionPerformed(ActionEvent e) {
-		DatabaseUtils.databaseInputUrl = "input/input";
+		DatabaseUtils.databaseInputUrl = "./input/input";
 		DatabaseUtils.inputSchemaUpdateEntityManger();
 		try {
-			new Console().runTool(new String[] {"-url", "jdbc:h2:input/input;AUTO_SERVER=TRUE", "-user", "sa", "-password", ""});
+			new Console().runTool(new String[] {"-url", "jdbc:h2:file:./input/input;AUTO_SERVER=TRUE", "-user", "sa", "-password", ""});
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

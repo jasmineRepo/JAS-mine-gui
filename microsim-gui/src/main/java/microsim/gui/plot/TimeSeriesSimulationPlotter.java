@@ -1,6 +1,8 @@
 package microsim.gui.plot;
 
-import java.awt.Color;
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import javax.swing.JInternalFrame;
@@ -69,7 +71,11 @@ public class TimeSeriesSimulationPlotter extends JInternalFrame implements Event
 	private ArrayList<Source> sources;
 	
 	private XYSeriesCollection dataset;
-	
+
+	private XYPlot plot;
+
+	private XYLineAndShapeRenderer renderer;
+
 	private int maxSamples = 0;
 	
 	public TimeSeriesSimulationPlotter(String title, String yaxis) {			//Include legend by default
@@ -106,16 +112,17 @@ public class TimeSeriesSimulationPlotter extends JInternalFrame implements Event
 //        chart.getLegend().setItemFont(new Font(fontName, style, (int)MicrosimShell.scale*size));
         
         // get a reference to the plot for further customisation...
-        final XYPlot plot = chart.getXYPlot();
+		plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
         
-        final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        renderer = new XYLineAndShapeRenderer();
 //        renderer.setSeriesLinesVisible(0, false);
 //        renderer.setSeriesShapesVisible(1, false);
 
         plot.setRenderer(renderer);
+
 
         // change the auto tick unit selection to integer units only...
         final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
@@ -130,6 +137,8 @@ public class TimeSeriesSimulationPlotter extends JInternalFrame implements Event
         
         this.setSize(400, 400);
 	}
+
+
 
 	public void onEvent(Enum<?> type) {
 		if (type instanceof CommonEventType && type.equals(CommonEventType.Update)) {
@@ -270,6 +279,23 @@ public class TimeSeriesSimulationPlotter extends JInternalFrame implements Event
 		dataset.addSeries(series);
 	}
 
+	public void addSeries(String legend, IDoubleSource plottableObject, Color lineColor, boolean shapesFilled, boolean isDashed, Shape shape) {
+		sources.add(new DSource(legend, plottableObject, IDoubleSource.Variables.Default));
+		//plot.addLegend(sources.size() - 1, legend);
+		XYSeries series = new XYSeries(legend);
+		if(maxSamples > 0) series.setMaximumItemCount(maxSamples);
+		dataset.addSeries(series);
+
+		int seriesIndex = dataset.getSeriesIndex(series.getKey()); //Get int Index of series using its key
+		Stroke dashed =  new BasicStroke(1.0f,BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, new float[] {10.0f}, 0.0f);
+		getRenderer().setSeriesPaint(seriesIndex, lineColor); //Set color of the series in the renderer to what was requested
+		getRenderer().setSeriesShapesFilled(seriesIndex, shapesFilled); //Set if shapes should be filled or not
+		if (isDashed) {
+			getRenderer().setSeriesStroke(seriesIndex, dashed);
+		}
+		getRenderer().setSeriesShape(seriesIndex, shape);
+	}
+
 	/**
 	 * Build a series retrieving data from a IDoubleSource object.
 	 * 
@@ -288,6 +314,37 @@ public class TimeSeriesSimulationPlotter extends JInternalFrame implements Event
 		XYSeries series = new XYSeries(legend);
 		if(maxSamples > 0) series.setMaximumItemCount(maxSamples);
 		dataset.addSeries(series);		
+	}
+
+	public void addSeries(String legend, IDoubleSource plottableObject, Enum<?> variableID, Color lineColor, boolean shapesFilled, boolean isDashed, Shape shape) {
+		sources.add(new DSource(legend, plottableObject, variableID));
+		//plot.addLegend(sources.size() - 1, legend);
+		XYSeries series = new XYSeries(legend);
+		if(maxSamples > 0) series.setMaximumItemCount(maxSamples);
+		dataset.addSeries(series);
+		int seriesIndex = dataset.getSeriesIndex(series.getKey()); //Get int Index of series using its key
+
+		Stroke dashed =  new BasicStroke(1.0f,BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, new float[] {10.0f}, 0.0f);
+		getRenderer().setSeriesPaint(seriesIndex, lineColor); //Set color of the series in the renderer to what was requested
+		getRenderer().setSeriesShapesFilled(seriesIndex, shapesFilled); //Set if shapes should be filled or not
+		if (isDashed) {
+			getRenderer().setSeriesStroke(seriesIndex, dashed);
+		}
+		getRenderer().setSeriesShape(seriesIndex, shape);
+
+	}
+
+	public void addSeries(String legend, IDoubleSource plottableObject, Enum<?> variableID, Color lineColor, boolean validation) {
+		if (validation) {
+			Shape myRectangle = new Rectangle2D.Float(-3,-3,6,6);
+			addSeries(legend, plottableObject, variableID, lineColor, false, true, myRectangle);
+		}
+		else {
+			Shape myCircle = new Ellipse2D.Float(-3, -3, 6, 6);
+			addSeries(legend, plottableObject, lineColor, true, false, myCircle);
+
+		}
+
 	}
 
 	/**
@@ -447,12 +504,22 @@ public class TimeSeriesSimulationPlotter extends JInternalFrame implements Event
 		return maxSamples;
 	}
 
+
 	/**
 	 * Set the max sample parameter.
 	 * @param maxSamples Maximum number of time-steps rendered on x axis.
 	 */
 	public void setMaxSamples(int maxSamples) {
 		this.maxSamples = maxSamples;
-	}	
-	
+	}
+
+
+	public XYLineAndShapeRenderer getRenderer() {
+		return (XYLineAndShapeRenderer) plot.getRenderer();
+	}
+
+	public void setRenderer(XYLineAndShapeRenderer renderer) {
+		plot.setRenderer(renderer);
+	}
+
 }

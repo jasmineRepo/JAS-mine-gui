@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
-
 import microsim.annotation.GUIparameter;
 import microsim.annotation.ModelParameter;
 import microsim.gui.shell.MicrosimShell;
@@ -71,11 +70,9 @@ public class ParameterFrame extends JInternalFrame {
 		setSize((int)(MicrosimShell.scale*320), Math.min((int)(MicrosimShell.scale*Math.max(30 + 26 * fields.size(), 90)), 500));
 		JScrollPane scrollP = new JScrollPane(metawidget);
 
-
-		if (metawidget.getComponentCount()>0) scrollP.getViewport().setBackground(metawidget.getComponent(0).getBackground());
+    if (metawidget.getComponentCount()>0) scrollP.getViewport().setBackground(metawidget.getComponent(0).getBackground());
 		getContentPane().add(scrollP);
 		setVisible(true);
-	
 	}
 	
 	public void save() {

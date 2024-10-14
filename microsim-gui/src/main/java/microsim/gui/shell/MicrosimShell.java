@@ -22,6 +22,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileSystemView;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import microsim.engine.EngineListener;
 import microsim.engine.SimulationEngine;
 import microsim.engine.SimulationManager;
@@ -176,13 +178,12 @@ public class MicrosimShell extends JFrame {
 		setInitButtonStatus();
 
 //		this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-		jSplitInternalDesktop.setDividerLocation(this.getHeight() / 3 * 4);
-		
 		currentShell = this;
 				
 		this.pack();
-		this.setSize((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(), (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+		this.setSize((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(), (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()-30);
 		this.setVisible(true);
+		jSplitInternalDesktop.setDividerLocation(jSplitInternalDesktop.getHeight() * 4 / 5);
 	}
 
 	public SimulationController getController() {
@@ -211,7 +212,8 @@ public class MicrosimShell extends JFrame {
 		try {
 			UIManager//.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
 			//.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
-			.setLookAndFeel("net.infonode.gui.laf.InfoNodeLookAndFeel");
+			//.setLookAndFeel("net.infonode.gui.laf.InfoNodeLookAndFeel");
+			.setLookAndFeel( new FlatLightLaf() );
 			SwingUtilities.updateComponentTreeUI(this);
 		} catch (Exception e) {
 			System.out.println("Error loading L&F " + e);
