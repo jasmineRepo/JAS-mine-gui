@@ -3,6 +3,7 @@ package microsim.gui.plot;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JInternalFrame;
@@ -25,6 +26,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -122,6 +124,11 @@ public class TimeSeriesSimulationPlotter extends JInternalFrame implements Event
 //        renderer.setSeriesShapesVisible(1, false);
 
         plot.setRenderer(renderer);
+
+        NumberAxis yearaxis = (NumberAxis) plot.getDomainAxis();
+        yearaxis.setNumberFormatOverride(new DecimalFormat("0000"));
+        yearaxis.setTickUnit(new NumberTickUnit(1));
+
 
 
         // change the auto tick unit selection to integer units only...
