@@ -1,9 +1,0 @@
-
-microsim.gui
-microsim.gui.colormap
-microsim.gui.plot
-microsim.gui.probe
-microsim.gui.shell
-microsim.gui.shell.parameter
-microsim.gui.space
-microsim.gui.utils
