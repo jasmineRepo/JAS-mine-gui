@@ -56,8 +56,6 @@ import org.jfree.util.PublicCloneable;
 
 /**
  * A weighted dataset that can be used for creating weighted histograms.
- *
- * @see SimpleHistogramDataset
  */
 public class Weighted_HistogramDataset extends AbstractIntervalXYDataset
 					implements IntervalXYDataset, Cloneable, PublicCloneable,

@@ -99,8 +99,6 @@ public class EngineParametersFrame extends JInternalFrame implements EngineListe
 	 * 
 	 * @param engine
 	 *            The simulation engine to edit.
-	 * @param controlPanel
-	 *            A refrence to an instance of ControlPanel.
 	 */
 	public EngineParametersFrame(SimulationEngine engine) {
 		currentEngine = engine;

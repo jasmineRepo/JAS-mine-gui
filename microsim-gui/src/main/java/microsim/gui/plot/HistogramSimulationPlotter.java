@@ -110,12 +110,6 @@ public class HistogramSimulationPlotter extends JInternalFrame implements EventL
 	 * @param includeLegend - toggles whether to include the legend.  If displaying a 
 	 * 	very large number of different series in the chart, it may be useful to turn 
 	 * 	the legend off as it will occupy a lot of space in the GUI.
-	 * @param maxSamples - the number of 'snapshots' of data displayed in the chart.  
-	 * 	Only data from the last 'maxSamples' updates will be displayed in the chart,
-	 * 	so if the chart is updated at each 'time-step', then only the most recent 
-	 * 	'maxSamples' time-steps will be shown on the chart.  If the user wishes to
-	 * 	accumulate all data points from the simulation run, i.e. to display all 
-	 * 	available data from all previous time-steps, set this to 0.
 	 */
 	public HistogramSimulationPlotter(String title, String xaxis, HistogramType type, int bins, Double minimum, Double maximum, boolean includeLegend) {		//Can specify whether to include legend and how many samples (updates) to display
 		super();
@@ -338,8 +332,6 @@ public class HistogramSimulationPlotter extends JInternalFrame implements EventL
 	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
-	 * @param valueID
-	 *            The variable id used by the IDoubleSource interface.
 	 * */
 	public void addCollectionSource(String name, IDoubleArraySource source) {
 		DArraySource sequence = new DArraySource(name, source);
@@ -354,8 +346,6 @@ public class HistogramSimulationPlotter extends JInternalFrame implements EventL
 	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
-	 * @param valueID
-	 *            The variable id used by the IDoubleSource interface.
 	 * */
 	public void addCollectionSource(String name, IFloatArraySource source) {
 		FArraySource sequence = new FArraySource(name, source);
@@ -370,8 +360,6 @@ public class HistogramSimulationPlotter extends JInternalFrame implements EventL
 	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
-	 * @param valueID
-	 *            The variable id used by the IDoubleSource interface.
 	 * */
 	public void addCollectionSource(String name, IIntArraySource source) {
 		IArraySource sequence = new IArraySource(name, source);
@@ -386,8 +374,6 @@ public class HistogramSimulationPlotter extends JInternalFrame implements EventL
 	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
-	 * @param valueID
-	 *            The variable id used by the IDoubleSource interface.
 	 * */
 	public void addCollectionSource(String name, ILongArraySource source) {
 		LArraySource sequence = new LArraySource(name, source);

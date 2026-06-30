@@ -42,7 +42,7 @@ package microsim.gui.plot;
 import java.io.Serializable;
 
 /**
-* A bin for the {@link HistogramDataset} class.
+* A bin for the {@link Weighted_HistogramDataset} class.
 */
 public class Weighted_HistogramBin implements Cloneable, Serializable {
 

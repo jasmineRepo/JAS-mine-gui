@@ -5,10 +5,11 @@ import java.awt.Color;
 /**
  * It builds automatically a color map using a variable range.<br>
  * There are three types of range:<br>
- * <item>From black color to a given color, based on a linear range.
- * <item>From given color to a given color, based on a linear range.
- * <item>From given color to a given color, based on dual range, with a
- * middle color.
+ * <ul>
+ * <li>From black color to a given color, based on a linear range.</li>
+ * <li>From given color to a given color, based on a linear range.</li>
+ * <li>From given color to a given color, based on dual range, with a middle color.</li>
+ * </ul>
  *
  * <p>Title: JAS</p>
  * <p>Description: Java Agent-based Simulation library</p>
@@ -39,7 +40,8 @@ public class RangeColorMap extends FixedColorMap
    *  @param minValue The lower bound of the range.
    *  @param maxValue The upper bound of the range.
    *  @param color The highest color. It will correspond to maxValue.
-   *  @throw ArrayIndexOutOfBoundsException if maxValue <= minValue.*/
+   *  @throws ArrayIndexOutOfBoundsException if {@code maxValue <= minValue}.
+   */
   public RangeColorMap(int gradients, double minValue, double maxValue,
                         Color color)
   {
@@ -69,7 +71,8 @@ public class RangeColorMap extends FixedColorMap
    *  @param maxValue The upper bound of the range.
    *  @param bottomColor The lowest color. It will correspond to minValue.
    *  @param topColor The highest color. It will correspond to maxValue.
-   *  @throw ArrayIndexOutOfBoundsException if maxValue <= minValue.*/
+   *  @throws ArrayIndexOutOfBoundsException if {@code maxValue <= minValue}.
+   */
   public RangeColorMap(int gradients, double minValue, double maxValue,
                         Color bottomColor, Color topColor )
   {
@@ -115,7 +118,8 @@ public class RangeColorMap extends FixedColorMap
    *  @param bottomColor The lowest color. It will correspond to minValue.
    *  @param middleColor The middle color. It will correspond to midValue.
    *  @param topColor The highest color. It will correspond to maxValue.
-   *  @throw ArrayIndexOutOfBoundsException if maxValue <= midValue || midValue <= minValue.*/
+   *  @throws ArrayIndexOutOfBoundsException if {@code maxValue <= midValue || midValue <= minValue}.
+   */
   public RangeColorMap(int gradients, double minValue, double midValue,
                              double maxValue, Color bottomColor, Color middleColor,
                              Color topColor)
