@@ -69,14 +69,14 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>batik</groupId>
-			<artifactId>batik-util</artifactId>
-			<version>1.6-1</version>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-dom</artifactId>
+			<version>1.19</version>
 		</dependency>
 		<dependency>
-			<groupId>batik</groupId>
+			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>batik-svggen</artifactId>
-			<version>1.6-1</version>
+			<version>1.19</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.squirrel-sql.thirdparty-non-maven</groupId>
