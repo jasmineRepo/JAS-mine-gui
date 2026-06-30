@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * An object used to map integer values to colors.
- * It is used by Layered<Type>Drawer to draw objects of the LayeredSurfaceFrame.
+ * It is used by {@code Layered<Type>Drawer} to draw objects of the LayeredSurfaceFrame.
  *
  * <p>Title: JAS</p>
  * <p>Description: Java Agent-based Simulation library</p>
@@ -72,7 +72,7 @@ public class FixedColorMap implements ColorMap
   /** Add a color to the map.
    *  @param value The integer value that maps to the given color.
    *  @param color The color to be mapped.
-   *  @throw ArrayIndexOutOfBoundsException If value is greather than the defined
+   *  @throws ArrayIndexOutOfBoundsException If value is greather than the defined
    *          mapped colors.*/
   public void addColor(int value, Color color)
   {
@@ -95,7 +95,7 @@ public class FixedColorMap implements ColorMap
    *  @param red The red component of the color to be mapped. [0-255] range accepted.
    *  @param green The green component of the color to be mapped. [0-255] range accepted.
    *  @param blue The blue component of the color to be mapped. [0-255] range accepted.
-   *  @throw ArrayIndexOutOfBoundsException If one of the three color components
+   *  @throws ArrayIndexOutOfBoundsException If one of the three color components
    *          is out of (0, 255) range.*/
   public void addColor(int value, int red, int green, int blue)
   {
@@ -147,7 +147,7 @@ public class FixedColorMap implements ColorMap
   }
 
   /** Map the given value with the right color.
-   *  @param index The value to be mapped.
+   *  @param value The value to be mapped.
    *  @return The color corresponding to the value.*/
   public Color getMappedColor(int value)
   {

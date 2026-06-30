@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Not of interest for users. It is the panel drawing the
- * Layer<type>Drawer objects added to the LayeredSurfaceFrame.
+ * {@code Layer<type>Drawer} objects added to the LayeredSurfaceFrame.
  * It manages mouse events, too.
  *
  * <p>Title: JAS</p>

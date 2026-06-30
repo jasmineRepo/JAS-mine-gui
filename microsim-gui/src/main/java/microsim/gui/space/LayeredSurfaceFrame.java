@@ -17,7 +17,7 @@ import microsim.gui.shell.MicrosimShell;
 
 /**
  * It is the Space Viewer window. It draws grid layers using a list of
- * ILayerDrawer objects. See Layered<type>GridDrawer classes of this library.
+ * ILayerDrawer objects. See {@code Layered<type>GridDrawer} classes of this library.
  * They are wrapper classes for Grid objects of the jas.space.* library and are
  * able to plot their contents.
  * 
@@ -83,7 +83,7 @@ public class LayeredSurfaceFrame extends JInternalFrame implements
 	 *            The width of the grid to plot.
 	 * @param height
 	 *            The height of the grid to plot.
-	 * @throw IllegalArgumentException if width <= 0 || height <= 0.
+     * @throws IllegalArgumentException if {@code width <= 0 || height <= 0}.
 	 */
 	public LayeredSurfaceFrame(int width, int height) {
 		this(width, height, width, height, DEFAULT_CELL_LENGHT);
@@ -98,7 +98,7 @@ public class LayeredSurfaceFrame extends JInternalFrame implements
 	 *            The height of the grid to plot.
 	 * @param cellLength
 	 *            The lenght of a grid cell in pixels.
-	 * @throw IllegalArgumentException if width <= 0 || height <= 0.
+	 * @throws IllegalArgumentException if {@code width <= 0 || height <= 0}.
 	 */
 	public LayeredSurfaceFrame(int width, int height, int cellLength) {
 		this(width, height, width, height, cellLength);
@@ -118,7 +118,7 @@ public class LayeredSurfaceFrame extends JInternalFrame implements
 	 *            The real width of the grid to plot.
 	 * @param gridHeight
 	 *            The real height of the grid to plot.
-	 * @throw IllegalArgumentException if width <= 0 || height <= 0.
+	 * @throws IllegalArgumentException if {@code width <= 0 || height <= 0}.
 	 */
 	public LayeredSurfaceFrame(int width, int height, int gridWidth,
 			int gridHeight, int cellLength) {
@@ -249,7 +249,7 @@ public class LayeredSurfaceFrame extends JInternalFrame implements
 	/**
 	 * React to system events.
 	 * 
-	 * @param actionType
+	 * @param type
 	 *            Reacts to the Sim.EVENT_UPDATE event repainting the plot area.
 	 */
 	public void onEvent(Enum<?> type) {

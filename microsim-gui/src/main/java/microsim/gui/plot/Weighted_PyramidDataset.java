@@ -61,8 +61,6 @@ import microsim.gui.plot.Weighted_PyramidPlotter.GroupName;
 
 /**
  * A weighted dataset that can be used for creating weighted pyramids.
- *
- * @see SimpleHistogramDataset
  */
 public class Weighted_PyramidDataset extends AbstractSeriesDataset
 					implements CategoryDataset, Cloneable, PublicCloneable,
@@ -81,9 +79,9 @@ public class Weighted_PyramidDataset extends AbstractSeriesDataset
      * groupRanges to build a HashMap of total group weight.
      * The weights are adjusted by the provided scalingFactor.
      *    
-     * @param groupNames  the names of each group to be generated (<code>null</code> not permitted).
-     * @param key  the ranges of each group to be generated (<code>null</code> not permitted).
-     * @param key  the scaling factor for the weights (<code>null</code> not permitted).
+     * @param groupNames the names of each group to be generated (<code>null</code> not permitted).
+     * @param groupRanges the ranges of each group to be generated (<code>null</code> not permitted).
+     * @param scalingFactor the scaling factor for the weights (<code>null</code> not permitted).
      */
     public Weighted_PyramidDataset(GroupName[] groupNames, double[][] groupRanges, double scalingFactor) {
         ParamChecks.nullNotPermitted(groupNames, "groupNames");
@@ -99,7 +97,7 @@ public class Weighted_PyramidDataset extends AbstractSeriesDataset
      * Adds the couple of series to the dataMap. Each value is assigned 
      * to a group when it matches the group's min/max limits. 
      *
-     * @param key  the series key (<code>null</code> not permitted).
+     * @param keys  the series key (<code>null</code> not permitted).
      * @param values  the raw observations. (<code>null</code> not permitted).
      * @param weightings  the weights associated with the values, i.e. 
      * 	weight i indicates the number of times the value i appears (<code>null</code> not permitted).

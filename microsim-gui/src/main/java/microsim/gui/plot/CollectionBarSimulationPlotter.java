@@ -254,8 +254,6 @@ public class CollectionBarSimulationPlotter extends JInternalFrame implements Ev
 	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
-	 * @param valueID
-	 *            The variable id used by the IDoubleSource interface.
 	 * */
 	public void addCollectionSource(String name, IDoubleArraySource source) {
 		DArraySource sequence = new DArraySource(name, source);
@@ -271,8 +269,6 @@ public class CollectionBarSimulationPlotter extends JInternalFrame implements Ev
 	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
-	 * @param valueID
-	 *            The variable id used by the IDoubleSource interface.
 	 * */
 	public void addCollectionSource(String name, IFloatArraySource source) {
 		FArraySource sequence = new FArraySource(name, source);
@@ -288,8 +284,6 @@ public class CollectionBarSimulationPlotter extends JInternalFrame implements Ev
 	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
-	 * @param valueID
-	 *            The variable id used by the IDoubleSource interface.
 	 * */
 	public void addCollectionSource(String name, IIntArraySource source) {
 		IArraySource sequence = new IArraySource(name, source);
@@ -305,8 +299,6 @@ public class CollectionBarSimulationPlotter extends JInternalFrame implements Ev
 	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
-	 * @param valueID
-	 *            The variable id used by the IDoubleSource interface.
 	 * */
 	public void addCollectionSource(String name, ILongArraySource source) {
 		LArraySource sequence = new LArraySource(name, source);

@@ -3,7 +3,7 @@ package microsim.gui.colormap;
 
 /**
  * A generic interface for color mappers. This interface
- * is required by Layer<NativeType>Drawer objects to
+ * is required by {@code Layer<NativeType>Drawer} objects to
  * paint values on the screen.
  *
  * <p>Title: JAS</p>

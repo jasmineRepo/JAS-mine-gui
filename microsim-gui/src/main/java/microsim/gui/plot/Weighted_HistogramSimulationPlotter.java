@@ -117,12 +117,6 @@ public class Weighted_HistogramSimulationPlotter extends JInternalFrame implemen
 	 * @param includeLegend - toggles whether to include the legend.  If displaying a 
 	 * 	very large number of different series in the chart, it may be useful to turn 
 	 * 	the legend off as it will occupy a lot of space in the GUI.
-	 * @param maxSamples - the number of 'snapshots' of data displayed in the chart.  
-	 * 	Only data from the last 'maxSamples' updates will be displayed in the chart,
-	 * 	so if the chart is updated at each 'time-step', then only the most recent 
-	 * 	'maxSamples' time-steps will be shown on the chart.  If the user wishes to
-	 * 	accumulate all data points from the simulation run, i.e. to display all 
-	 * 	available data from all previous time-steps, set this to 0.
 	 */
 	public Weighted_HistogramSimulationPlotter(String title, String xaxis, HistogramType type, int bins, Double minimum, Double maximum, boolean includeLegend) {		//Can specify whether to include legend and how many samples (updates) to display
 //		super(title, xaxis, type, bins, minimum, maximum, includeLegend);		//invoke HistogramSimulationPlotter constructor

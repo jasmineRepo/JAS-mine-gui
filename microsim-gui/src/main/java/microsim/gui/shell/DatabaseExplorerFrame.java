@@ -83,8 +83,6 @@ public class DatabaseExplorerFrame extends JInternalFrame {
 	 * 
 	 * @param engine
 	 *            The simulation engine to edit.
-	 * @param controlPanel
-	 *            A reference to an instance of ControlPanel.
 	 */
 	public DatabaseExplorerFrame(SimulationEngine engine) {
 		initialize();	

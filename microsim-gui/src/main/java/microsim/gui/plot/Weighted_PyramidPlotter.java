@@ -588,8 +588,6 @@ public class Weighted_PyramidPlotter extends JInternalFrame implements EventList
 	 * Add a new series buffer, retrieving value from IWeightedDoubleSource objects in a
 	 * collection.
 	 * 
-	 * @param name
-	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
 	 * */
@@ -604,8 +602,6 @@ public class Weighted_PyramidPlotter extends JInternalFrame implements EventList
 	 * Add a new series buffer, retrieving value from IWeightedFloatSource objects in a
 	 * collection.
 	 * 
-	 * @param name
-	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
 	 * */
@@ -620,8 +616,6 @@ public class Weighted_PyramidPlotter extends JInternalFrame implements EventList
 	 * Add a new series buffer, retrieving value from IWeightedIntArraySource objects in a
 	 * collection.
 	 * 
-	 * @param name
-	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
 	 * */
@@ -636,8 +630,6 @@ public class Weighted_PyramidPlotter extends JInternalFrame implements EventList
 	 * Add a new series buffer, retrieving value from IWeightedLongSource objects in a
 	 * collection.
 	 * 
-	 * @param name
-	 *            The name of the series, which is shown in the legend.
 	 * @param source
 	 *            A collection containing the sources.
 	 * */
