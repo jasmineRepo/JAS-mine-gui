@@ -13,7 +13,8 @@ import microsim.statistics.reflectors.IntegerInvoker;
 import org.apache.log4j.Logger;
 
 /**
- * It is able to draw objects contained by an ObjGrid on a LayeredSurfaceFrame.<br>
+ * It is able to draw objects contained by an ObjGrid on a
+ * LayeredSurfaceFrame.<br>
  * An object is represented by a circle. The objects could be drawn using one
  * given color or, implementing the IColored interface inside them, each object
  * return to the LayerObjGridDrawer which color to use.
@@ -47,240 +48,240 @@ import org.apache.log4j.Logger;
  */
 public class LayerObjectGridDrawer implements ILayerDrawer {
 
-	private static final Logger log = Logger
-			.getLogger(LayerObjectGridDrawer.class);
+    private static final Logger log = Logger
+            .getLogger(LayerObjectGridDrawer.class);
 
-	ObjectSpace space;
-	Color c;
+    ObjectSpace space;
+    Color c;
 
-	private ColorMap colorMap;
-	private boolean isDisplayed = true;
-	private String description;
+    private ColorMap colorMap;
+    private boolean isDisplayed = true;
+    private String description;
 
-	private Object invoker = null;
-	
-	private ILayerMouseListener mouseListener = null;
+    private Object invoker = null;
 
-	/**
-	 * Create a new object drawer based on a given Grid object. It plots the
-	 * objects using the given color. NOTICE that the matrix parameter accepts a
-	 * generic Grid, so also classes like IntGrid could be drawn.
-	 * 
-	 * @param name
-	 *            The string describing the layer.
-	 * @param matrix
-	 *            A generic Grid object.
-	 * @param color
-	 *            The default color used to plot objects.
-	 */
-	public LayerObjectGridDrawer(String name, ObjectSpace matrix, Color color) {
-		description = name;
-		space = matrix;
-		c = color;
-	}
+    private ILayerMouseListener mouseListener = null;
 
-	/**
-	 * Create a new object drawer based on a given Grid object. It plots the
-	 * objects using the color they return. NOTICE that the matrix parameter
-	 * accepts a generic Grid, so also classes like IntGrid could be drawn.
-	 * 
-	 * @param name
-	 *            The string describing the layer.
-	 * @param matrix
-	 *            A generic Grid object containing IColored objects.
-	 */
-	public LayerObjectGridDrawer(String name, ObjectSpace matrix, Class<?> targetClass, String variableName, boolean isMethod, ColorMap map)
-  {
-    this(name, matrix, null);
-  	this.colorMap = map;
-  	if (ReflectionUtils.isDoubleSource(targetClass, variableName, isMethod))
-  		invoker = new DoubleInvoker(targetClass, variableName, isMethod);
-  	else if (ReflectionUtils.isIntSource(targetClass, variableName, isMethod))
-  		invoker = new IntegerInvoker(targetClass, variableName, isMethod);
-  	else
-  		throw new IllegalArgumentException("Supported field type: double, int");
-  }
+    /**
+     * Create a new object drawer based on a given Grid object. It plots the
+     * objects using the given color. NOTICE that the matrix parameter accepts a
+     * generic Grid, so also classes like IntGrid could be drawn.
+     * 
+     * @param name
+     *               The string describing the layer.
+     * @param matrix
+     *               A generic Grid object.
+     * @param color
+     *               The default color used to plot objects.
+     */
+    public LayerObjectGridDrawer(String name, ObjectSpace matrix, Color color) {
+        description = name;
+        space = matrix;
+        c = color;
+    }
 
-	// Implementing LayerDrawerInterface interface
+    /**
+     * Create a new object drawer based on a given Grid object. It plots the
+     * objects using the color they return. NOTICE that the matrix parameter
+     * accepts a generic Grid, so also classes like IntGrid could be drawn.
+     * 
+     * @param name
+     *               The string describing the layer.
+     * @param matrix
+     *               A generic Grid object containing IColored objects.
+     */
+    public LayerObjectGridDrawer(String name, ObjectSpace matrix, Class<?> targetClass, String variableName,
+            boolean isMethod, ColorMap map) {
+        this(name, matrix, null);
+        this.colorMap = map;
+        if (ReflectionUtils.isDoubleSource(targetClass, variableName, isMethod))
+            invoker = new DoubleInvoker(targetClass, variableName, isMethod);
+        else if (ReflectionUtils.isIntSource(targetClass, variableName, isMethod))
+            invoker = new IntegerInvoker(targetClass, variableName, isMethod);
+        else
+            throw new IllegalArgumentException("Supported field type: double, int");
+    }
 
-	private void paintWithColor(Graphics g, int cellLen) {
-		g.setColor(c);
+    // Implementing LayerDrawerInterface interface
 
-		for (int i = 0; i < space.getXSize(); i++)
-			for (int j = 0; j < space.getYSize(); j++)
-				if (space.countObjectsAt(i, j) > 0) {
-					int XX = i * cellLen;
-					int YY = j * cellLen;
-					g.fillOval(XX, YY, cellLen, cellLen);
-				}
-	}
+    private void paintWithColor(Graphics g, int cellLen) {
+        g.setColor(c);
 
-	private Color getColor(Object agent) throws SecurityException,
-			NoSuchFieldException, IllegalArgumentException,
-			IllegalAccessException {
-		
-		int level;
-		if (invoker instanceof DoubleInvoker)
-			level = (int) ((DoubleInvoker) invoker).getDouble(agent);
-		else
-			level = (int) ((IntegerInvoker) invoker).getInt(agent);
-		
-		int index = colorMap.getColorIndex(level);
+        for (int i = 0; i < space.getXSize(); i++)
+            for (int j = 0; j < space.getYSize(); j++)
+                if (space.countObjectsAt(i, j) > 0) {
+                    int XX = i * cellLen;
+                    int YY = j * cellLen;
+                    g.fillOval(XX, YY, cellLen, cellLen);
+                }
+    }
 
-		int[] components = colorMap.getColorComponents(index);
-		return new Color(components[0], components[1], components[2]);
+    private Color getColor(Object agent) throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
 
-	}
+        int level;
+        if (invoker instanceof DoubleInvoker)
+            level = (int) ((DoubleInvoker) invoker).getDouble(agent);
+        else
+            level = (int) ((IntegerInvoker) invoker).getInt(agent);
 
-	private void paintWithoutColor(Graphics g, int cellLen)
-			throws SecurityException, IllegalArgumentException,
-			NoSuchFieldException, IllegalAccessException {
-		Object obj;
-		Color cl, currentColor = null;
+        int index = colorMap.getColorIndex(level);
 
-		for (int i = 0; i < space.getXSize(); i++)
-			for (int j = 0; j < space.getYSize(); j++)
-				if ((obj = space.get(i, j)) != null) {
-					cl = getColor(obj);
-					if (cl != currentColor) {
-						currentColor = cl;
-						g.setColor(currentColor);
-					}
-					int XX = i * cellLen;
-					int YY = j * cellLen;
-					g.fillOval(XX, YY, cellLen, cellLen);
-				}
-	}
+        int[] components = colorMap.getColorComponents(index);
+        return new Color(components[0], components[1], components[2]);
 
-	/**
-	 * Draw the layer using the given cell length.
-	 * 
-	 * @param g
-	 *            The graphic context passed by container.
-	 * @param cellLen
-	 *            The length of a cell in pixels.
-	 */
-	public void paint(Graphics g, int cellLen) {
-		if (c != null)
-			paintWithColor(g, cellLen);
-		else
-			try {
-				paintWithoutColor(g, cellLen);
-			} catch (SecurityException e) {
-				log.error(e.getMessage());
-			} catch (IllegalArgumentException e) {
-				log.error(e.getMessage());
-			} catch (NoSuchFieldException e) {
-				log.error(e.getMessage());
-			} catch (IllegalAccessException e) {
-				log.error(e.getMessage());
-			}
-	}
+    }
 
-	/**
-	 * Return if the layer is currently displayed on the LayeredSurfaceFrame.
-	 * 
-	 * @return True if it is currently painted, false otherwise.
-	 */
-	public boolean isDisplayed() {
-		return isDisplayed;
-	}
+    private void paintWithoutColor(Graphics g, int cellLen)
+            throws SecurityException, IllegalArgumentException,
+            NoSuchFieldException, IllegalAccessException {
+        Object obj;
+        Color cl, currentColor = null;
 
-	/**
-	 * Decide if layer has to be painted or not.
-	 * 
-	 * @param display
-	 *            True if you want the layer to be painted, false otherwise.
-	 */
-	public void setDisplay(boolean display) {
-		isDisplayed = display;
-	}
+        for (int i = 0; i < space.getXSize(); i++)
+            for (int j = 0; j < space.getYSize(); j++)
+                if ((obj = space.get(i, j)) != null) {
+                    cl = getColor(obj);
+                    if (cl != currentColor) {
+                        currentColor = cl;
+                        g.setColor(currentColor);
+                    }
+                    int XX = i * cellLen;
+                    int YY = j * cellLen;
+                    g.fillOval(XX, YY, cellLen, cellLen);
+                }
+    }
 
-	/**
-	 * Return the name of the layer.
-	 * 
-	 * @return The name passed to the constructor.
-	 */
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * Draw the layer using the given cell length.
+     * 
+     * @param g
+     *                The graphic context passed by container.
+     * @param cellLen
+     *                The length of a cell in pixels.
+     */
+    public void paint(Graphics g, int cellLen) {
+        if (c != null)
+            paintWithColor(g, cellLen);
+        else
+            try {
+                paintWithoutColor(g, cellLen);
+            } catch (SecurityException e) {
+                log.error(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                log.error(e.getMessage());
+            } catch (NoSuchFieldException e) {
+                log.error(e.getMessage());
+            } catch (IllegalAccessException e) {
+                log.error(e.getMessage());
+            }
+    }
 
-	/**
-	 * Set a manager for mouse events. If not defined, mouse events are managed
-	 * by the class itself.
-	 * 
-	 * @param listener
-	 *            A ILayerMouseListener object.
-	 */
-	public void setMouseListener(ILayerMouseListener listener) {
-		mouseListener = listener;
-	}
+    /**
+     * Return if the layer is currently displayed on the LayeredSurfaceFrame.
+     * 
+     * @return True if it is currently painted, false otherwise.
+     */
+    public boolean isDisplayed() {
+        return isDisplayed;
+    }
 
-	/**
-	 * If a mouse listener has been defined the double-click event, it is passed
-	 * to it, otherwise it is shown a message box with the value contained by
-	 * the clicked cell.
-	 * 
-	 * @param atX
-	 *            The x coordinate of the clicked cell.
-	 * @param atY
-	 *            The y coordinate of the clicked cell.
-	 * @return always true if no mouse listener is defined. This value is used
-	 *         by caller to know if the layer wants to manage the event.
-	 */
-	public boolean performDblClickActionAt(int atX, int atY) {
-		if (mouseListener != null)
-			return mouseListener.performDblClickActionAt(atX, atY);
+    /**
+     * Decide if layer has to be painted or not.
+     * 
+     * @param display
+     *                True if you want the layer to be painted, false otherwise.
+     */
+    public void setDisplay(boolean display) {
+        isDisplayed = display;
+    }
 
-		if (space.get(atX, atY) == null)
-			return false;
+    /**
+     * Return the name of the layer.
+     * 
+     * @return The name passed to the constructor.
+     */
+    public String getDescription() {
+        return description;
+    }
 
-		Object p = space.get(atX, atY);
-		ProbeFrame pf = new ProbeFrame(p, p.toString());
-		pf.setVisible(true);
-		return true;
-	}
+    /**
+     * Set a manager for mouse events. If not defined, mouse events are managed
+     * by the class itself.
+     * 
+     * @param listener
+     *                 A ILayerMouseListener object.
+     */
+    public void setMouseListener(ILayerMouseListener listener) {
+        mouseListener = listener;
+    }
 
-	/**
-	 * If a mouse listener has been defined the right-click event, it is passed
-	 * to it, otherwise it is returned false.
-	 * 
-	 * @param atX
-	 *            The x coordinate of the clicked cell.
-	 * @param atY
-	 *            The y coordinate of the clicked cell.
-	 * @return always false if no mouse listener is defined. This value is used
-	 *         by caller to know if the layer wants to manage the event.
-	 */
-	public boolean performRightClickActionAt(int atX, int atY) {
-		if (mouseListener != null)
-			return mouseListener.performRightClickActionAt(atX, atY);
+    /**
+     * If a mouse listener has been defined the double-click event, it is passed
+     * to it, otherwise it is shown a message box with the value contained by
+     * the clicked cell.
+     * 
+     * @param atX
+     *            The x coordinate of the clicked cell.
+     * @param atY
+     *            The y coordinate of the clicked cell.
+     * @return always true if no mouse listener is defined. This value is used
+     *         by caller to know if the layer wants to manage the event.
+     */
+    public boolean performDblClickActionAt(int atX, int atY) {
+        if (mouseListener != null)
+            return mouseListener.performDblClickActionAt(atX, atY);
 
-		return false;
-	}
+        if (space.get(atX, atY) == null)
+            return false;
 
-	/**
-	 * If a mouse listener has been defined the mouse dragging event, it is
-	 * passed to it, otherwise it is returned false.
-	 * 
-	 * @param fromX
-	 *            The x coordinate of the starting cell.
-	 * @param fromY
-	 *            The y coordinate of the starting cell.
-	 * @param toX
-	 *            The x coordinate of the last dragged cell.
-	 * @param toY
-	 *            The y coordinate of the last dragged cell.
-	 * @return always false if no mouse listener is defined. This value is used
-	 *         by caller to know if the layer wants to manage the event.
-	 */
-	public boolean performMouseMovedFromTo(int fromX, int fromY, int toX,
-			int toY) {
-		if (mouseListener != null)
-			return mouseListener
-					.performMouseMovedFromTo(fromX, fromY, toX, toY);
+        Object p = space.get(atX, atY);
+        ProbeFrame pf = new ProbeFrame(p, p.toString());
+        pf.setVisible(true);
+        return true;
+    }
 
-		return false;
-	}
+    /**
+     * If a mouse listener has been defined the right-click event, it is passed
+     * to it, otherwise it is returned false.
+     * 
+     * @param atX
+     *            The x coordinate of the clicked cell.
+     * @param atY
+     *            The y coordinate of the clicked cell.
+     * @return always false if no mouse listener is defined. This value is used
+     *         by caller to know if the layer wants to manage the event.
+     */
+    public boolean performRightClickActionAt(int atX, int atY) {
+        if (mouseListener != null)
+            return mouseListener.performRightClickActionAt(atX, atY);
+
+        return false;
+    }
+
+    /**
+     * If a mouse listener has been defined the mouse dragging event, it is
+     * passed to it, otherwise it is returned false.
+     * 
+     * @param fromX
+     *              The x coordinate of the starting cell.
+     * @param fromY
+     *              The y coordinate of the starting cell.
+     * @param toX
+     *              The x coordinate of the last dragged cell.
+     * @param toY
+     *              The y coordinate of the last dragged cell.
+     * @return always false if no mouse listener is defined. This value is used
+     *         by caller to know if the layer wants to manage the event.
+     */
+    public boolean performMouseMovedFromTo(int fromX, int fromY, int toX,
+            int toY) {
+        if (mouseListener != null)
+            return mouseListener
+                    .performMouseMovedFromTo(fromX, fromY, toX, toY);
+
+        return false;
+    }
 
 }

@@ -9,9 +9,10 @@ import org.apache.log4j.spi.LoggingEvent;
 
 /**
  * JAS custom log4j appender to catch logs and write them into the
- * JAS Console window.<br/><br/>
+ * JAS Console window.<br/>
+ * <br/>
  * 
- * If you want to enable logging on the JAS console simply add this appender to 
+ * If you want to enable logging on the JAS console simply add this appender to
  * the log4j.properties file, like that:<br/>
  * <br/>
  * <i>log4j.appender.stdout=microsim.gui.shell.JasConsoleAppender</i><br/>
@@ -47,24 +48,24 @@ import org.apache.log4j.spi.LoggingEvent;
  */
 public class JasConsoleAppender extends WriterAppender {
 
-	public JasConsoleAppender() {		
-	}
+    public JasConsoleAppender() {
+    }
 
-	public JasConsoleAppender(Layout layout, OutputStream os) {
-		super(layout, os);		
-	}
+    public JasConsoleAppender(Layout layout, OutputStream os) {
+        super(layout, os);
+    }
 
-	public JasConsoleAppender(Layout layout, Writer writer) {
-		super(layout, writer);
-	}
+    public JasConsoleAppender(Layout layout, Writer writer) {
+        super(layout, writer);
+    }
 
-	@Override
-	public void append(LoggingEvent event) {
-		super.append(event);
-		if (MicrosimShell.currentShell != null)
-			MicrosimShell.currentShell.log(event.getMessage().toString());
-		else
-			System.out.println(event.getMessage().toString());
-	}
+    @Override
+    public void append(LoggingEvent event) {
+        super.append(event);
+        if (MicrosimShell.currentShell != null)
+            MicrosimShell.currentShell.log(event.getMessage().toString());
+        else
+            System.out.println(event.getMessage().toString());
+    }
 
 }

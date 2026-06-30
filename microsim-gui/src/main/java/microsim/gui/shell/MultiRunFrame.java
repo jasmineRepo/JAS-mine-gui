@@ -40,169 +40,169 @@ import org.jfree.ui.tabbedui.VerticalLayout;
  */
 
 public class MultiRunFrame extends JFrame implements MultiRunListener, EngineListener {
-	
-	private static Logger log = Logger.getLogger(MultiRunFrame.class);
-	
-	/**
-	 * Comment for <code>serialVersionUID</code>
-	 */
-	private static final long serialVersionUID = 1L;
-	private VerticalLayout borderLayout1 = new VerticalLayout();
-	private JPanel jPanelNorth = new JPanel();
-	private JLabel jLblNumber = new JLabel();
-	private JLabel jLblRunNb = new JLabel();
-	private JLabel jLblCurrentStep = new JLabel();
-	private JLabel jLblCurrentStepLabel = new JLabel();
-	private JLabel jLblCurrentRun = new JLabel();
-	private JLabel jLblCurrentRunLabel = new JLabel();
-	private JProgressBar jBar = new JProgressBar();
-	private JButton jBtnQuit = new JButton();
-	private JPanel jPanelBtns = new JPanel();
-	private JButton jBtnStart = new JButton();
 
-	private int forward = 1;
+    private static Logger log = Logger.getLogger(MultiRunFrame.class);
 
-	private int maxRuns;
-	
-	private MultiRun test;
+    /**
+     * Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 1L;
+    private VerticalLayout borderLayout1 = new VerticalLayout();
+    private JPanel jPanelNorth = new JPanel();
+    private JLabel jLblNumber = new JLabel();
+    private JLabel jLblRunNb = new JLabel();
+    private JLabel jLblCurrentStep = new JLabel();
+    private JLabel jLblCurrentStepLabel = new JLabel();
+    private JLabel jLblCurrentRun = new JLabel();
+    private JLabel jLblCurrentRunLabel = new JLabel();
+    private JProgressBar jBar = new JProgressBar();
+    private JButton jBtnQuit = new JButton();
+    private JPanel jPanelBtns = new JPanel();
+    private JButton jBtnStart = new JButton();
 
-	public MultiRunFrame(MultiRun test, String title, int maxRuns) {
-		this.test = test;
-		this.maxRuns = maxRuns;
-		test.getEngineListeners().add(this);
-		test.getMultiRunListeners().add(this);
-		try {
-			jbInit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+    private int forward = 1;
 
-		this.setTitle(title);
-		setMaxRuns(maxRuns);
-		this.setVisible(true);
-		this.setResizable(false);
-	}
+    private int maxRuns;
 
-	private void jbInit() throws Exception {
-		this.getContentPane().setLayout(borderLayout1);
-		jPanelNorth.setLayout(new VerticalLayout());
-		
-		JPanel h1 = new JPanel(new FlowLayout());
-		jLblNumber.setText("0");
-		jLblRunNb.setText("Current run number: ");
-		h1.add(jLblRunNb);
-		h1.add(jLblNumber);
-		
-		JPanel h2 = new JPanel(new FlowLayout());
-		jLblCurrentStep.setText("0");
-		jLblCurrentStepLabel.setText("Current run step: ");
-		h2.add(jLblCurrentStepLabel);
-		h2.add(jLblCurrentStep);
-		
-		JPanel h3 = new JPanel(new FlowLayout());
-		jLblCurrentRun.setText("");
-		jLblCurrentRunLabel.setText("Current step: ");
-		h3.add(jLblCurrentRunLabel);
-		h3.add(jLblCurrentRun);
-		
-		jBtnQuit.setText("Quit");
-		jBtnQuit.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jBtnQuit_actionPerformed(e);
-			}
-		});
-		jBtnStart.setText("Start");
-		jBtnStart.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jBtnStart_actionPerformed(e);
-			}
-		});
-		
-		jPanelBtns.add(jBtnStart, null);
-		this.getContentPane().add(jPanelNorth);
-		jPanelNorth.add(h1, null);
-		jPanelNorth.add(h2, null);
-		jPanelNorth.add(h3, null);
-		jPanelNorth.add(new JLabel("-"), null);
-		
-		this.getContentPane().add(jBar);
-		this.getContentPane().add(new JLabel("-"));
-		
-		this.getContentPane().add(jPanelBtns);
-		jPanelBtns.add(jBtnQuit, null);
+    private MultiRun test;
 
-		setSize(300, 180);
-		int x = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-		int y = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		setLocation((x - 300) / 2, (y - 300) / 2);
-	}
+    public MultiRunFrame(MultiRun test, String title, int maxRuns) {
+        this.test = test;
+        this.maxRuns = maxRuns;
+        test.getEngineListeners().add(this);
+        test.getMultiRunListeners().add(this);
+        try {
+            jbInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	public void updateModelNumber(int currentRun, SimulationEngine engine) {
-		jLblNumber.setText(currentRun + "");
-		jLblCurrentRun.setText(engine.getMultiRunId());
-	}
+        this.setTitle(title);
+        setMaxRuns(maxRuns);
+        this.setVisible(true);
+        this.setResizable(false);
+    }
 
-	void jBtnQuit_actionPerformed(ActionEvent e) {
-		System.exit(0);
-	}
+    private void jbInit() throws Exception {
+        this.getContentPane().setLayout(borderLayout1);
+        jPanelNorth.setLayout(new VerticalLayout());
 
-	public void setMaxRuns(int maxRuns) {
-		jBar.setMaximum(maxRuns);
-	}
+        JPanel h1 = new JPanel(new FlowLayout());
+        jLblNumber.setText("0");
+        jLblRunNb.setText("Current run number: ");
+        h1.add(jLblRunNb);
+        h1.add(jLblNumber);
 
-	public void updateBar() {
-		if (jBar.getValue() == 0 || jBar.getValue() == jBar.getMaximum()) {
-			if (forward == 1)
-				forward = -1;
-			else
-				forward = 1;
-		}
+        JPanel h2 = new JPanel(new FlowLayout());
+        jLblCurrentStep.setText("0");
+        jLblCurrentStepLabel.setText("Current run step: ");
+        h2.add(jLblCurrentStepLabel);
+        h2.add(jLblCurrentStep);
 
-		jBar.setValue(jBar.getValue() + forward);
+        JPanel h3 = new JPanel(new FlowLayout());
+        jLblCurrentRun.setText("");
+        jLblCurrentRunLabel.setText("Current step: ");
+        h3.add(jLblCurrentRunLabel);
+        h3.add(jLblCurrentRun);
 
-		repaint();
-	}
+        jBtnQuit.setText("Quit");
+        jBtnQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                jBtnQuit_actionPerformed(e);
+            }
+        });
+        jBtnStart.setText("Start");
+        jBtnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                jBtnStart_actionPerformed(e);
+            }
+        });
 
-	private class Timer extends Thread {
-		private MultiRunFrame caller;
+        jPanelBtns.add(jBtnStart, null);
+        this.getContentPane().add(jPanelNorth);
+        jPanelNorth.add(h1, null);
+        jPanelNorth.add(h2, null);
+        jPanelNorth.add(h3, null);
+        jPanelNorth.add(new JLabel("-"), null);
 
-		public Timer(MultiRunFrame caller) {
-			this.caller = caller;
-		}
+        this.getContentPane().add(jBar);
+        this.getContentPane().add(new JLabel("-"));
 
-		public void run() {
-			while (true) {
-				caller.updateBar();
-				try {
-					sleep(200);
-				} catch (Exception e) {
-				}
-			}
-		}
-	}
+        this.getContentPane().add(jPanelBtns);
+        jPanelBtns.add(jBtnQuit, null);
 
-	void jBtnStart_actionPerformed(ActionEvent e) {
-		jBtnStart.setEnabled(false);
-		Timer tm = new Timer(this);
-		tm.start();
-		test.start();
-	}
-	
-	public void beforeSimulationStart(SimulationEngine engine) {
-		if (maxRuns > 0 && test.getCounter() > maxRuns) {
-			log.info("Maximum run number reached. Bye");
-			System.exit(0);
-		}
-			
-		updateModelNumber(test.getCounter(), engine);
-	}
+        setSize(300, 180);
+        int x = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        int y = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        setLocation((x - 300) / 2, (y - 300) / 2);
+    }
 
-	public void afterSimulationCompleted(SimulationEngine engine) {
-		
-	}
+    public void updateModelNumber(int currentRun, SimulationEngine engine) {
+        jLblNumber.setText(currentRun + "");
+        jLblCurrentRun.setText(engine.getMultiRunId());
+    }
 
-	public void onEngineEvent(SystemEventType event) {
-		if (event.equals(SystemEventType.Step))
-			jLblCurrentStep.setText(SimulationEngine.getInstance().getTime() + "");
-	}
+    void jBtnQuit_actionPerformed(ActionEvent e) {
+        System.exit(0);
+    }
+
+    public void setMaxRuns(int maxRuns) {
+        jBar.setMaximum(maxRuns);
+    }
+
+    public void updateBar() {
+        if (jBar.getValue() == 0 || jBar.getValue() == jBar.getMaximum()) {
+            if (forward == 1)
+                forward = -1;
+            else
+                forward = 1;
+        }
+
+        jBar.setValue(jBar.getValue() + forward);
+
+        repaint();
+    }
+
+    private class Timer extends Thread {
+        private MultiRunFrame caller;
+
+        public Timer(MultiRunFrame caller) {
+            this.caller = caller;
+        }
+
+        public void run() {
+            while (true) {
+                caller.updateBar();
+                try {
+                    sleep(200);
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+
+    void jBtnStart_actionPerformed(ActionEvent e) {
+        jBtnStart.setEnabled(false);
+        Timer tm = new Timer(this);
+        tm.start();
+        test.start();
+    }
+
+    public void beforeSimulationStart(SimulationEngine engine) {
+        if (maxRuns > 0 && test.getCounter() > maxRuns) {
+            log.info("Maximum run number reached. Bye");
+            System.exit(0);
+        }
+
+        updateModelNumber(test.getCounter(), engine);
+    }
+
+    public void afterSimulationCompleted(SimulationEngine engine) {
+
+    }
+
+    public void onEngineEvent(SystemEventType event) {
+        if (event.equals(SystemEventType.Step))
+            jLblCurrentStep.setText(SimulationEngine.getInstance().getTime() + "");
+    }
 }

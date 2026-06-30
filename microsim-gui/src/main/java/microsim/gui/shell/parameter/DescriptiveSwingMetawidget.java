@@ -9,18 +9,18 @@ import org.metawidget.swing.SwingMetawidget;
 
 public class DescriptiveSwingMetawidget extends SwingMetawidget {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	protected void layoutWidget(Component component, String elementName,
-			Map<String, String> attributes) {
+    @Override
+    protected void layoutWidget(Component component, String elementName,
+            Map<String, String> attributes) {
 
-		super.layoutWidget(component, elementName, attributes);
+        super.layoutWidget(component, elementName, attributes);
 
-		if ( component == null )
-			return;
+        if (component == null)
+            return;
 
-	    ((JComponent) component).setToolTipText( attributes.get( "tooltip" ));		
-	}
+        ((JComponent) component).setToolTipText(attributes.get("tooltip"));
+    }
 
 }
